@@ -1,0 +1,7 @@
+<header class="container">
+  <app-menu-desktop (displayMenu)="handleMenu($event)"></app-menu-desktop>
+
+</header>
+<div *ngIf="active">
+    <app-menu-mobile (hideMenu)="handleMenu($event)"></app-menu-mobile>
+  </div>

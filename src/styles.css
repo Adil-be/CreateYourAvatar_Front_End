@@ -1,1 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "assets/css/base.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap");
+
+/* ****************
+    STYLE GLOBAL   
+******************* */
+:root {
+  --violet: 113, 47, 121;
+  --LibertyBlue: 76, 76, 157;
+  --queenBlue: 72, 99, 157;
+  --backgroundBlue: 216, 227, 231;
+  --black: 30, 30, 30;
+  --Green: 64, 133, 9;
+  --Red: 180, 34, 34;
+  --gradViolet: linear-gradient(
+    to top right,
+    rgb(var(--violet)),
+    rgba(120, 96, 216)
+  );
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Work Sans", sans-serif;
+  background: rgba(var(--violet), 0.1);
+}
+
+h1 {
+  font-size: 6rem;
+  line-height: 110%;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 110%;
+  font-weight: 500;
+}
+h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+section {
+  padding: 100px 0;
+}
+ul {
+  margin: 0;
+}
+
+/* ****************
+    CLASS GLOBAL   
+******************* */
+.violet {
+    color: rgb(var(--violet));
+  }
+  .blue {
+    color: rgb(var(--LibertyBlue));
+  }
+  .btn {
+    font-size: 1.6rem;
+    padding: 15px 20px;
+    border-radius: 10px;
+  }
+  
+  .btn-main {
+    color: #fff !important;
+    background: var(--gradViolet);
+  }
+  .btn-alt {
+    color: rgb(var(--violet)) !important;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid rgb(var(--violet)) !important;
+  }
+  .btn.btn-alt:hover {
+    background: rgba(var(--LibertyBlue), 0.2);
+    /* color: #fff !important; */
+  }
+  
+  .myContanier {
+    max-width: 1440px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn.btn-main:hover {
+    color: rgb(var(--violet)) !important;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid rgb(var(--violet));
+  }
+  
+
+  
+  .price i {
+    vertical-align: middle;
+  }

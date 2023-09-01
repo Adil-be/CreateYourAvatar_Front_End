@@ -1,0 +1,32 @@
+@media (min-width: 768px) {
+  .navMobile {
+    display: none;
+  }
+}
+
+i.bi {
+  font-size: 30px;
+}
+
+
+
+.navMobile {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  background-color: #fff;
+  width: 300px;
+  height: 100vh;
+}
+.navMobile ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.navMobile ul:first-of-type li {
+  border-bottom: 1px solid black;
+}
+
+.navMobile.active {
+  transform: translateX(300px);
+}

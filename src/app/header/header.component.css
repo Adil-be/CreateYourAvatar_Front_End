@@ -1,0 +1,38 @@
+header {
+    margin-bottom: 20px;
+  }
+  header nav.navDesktop,
+  header nav.navDesktop ul {
+    display: flex;
+    align-items: center;
+  }
+  
+  header nav {
+    justify-content: space-between;
+  }
+  header nav ul {
+    gap: 50px;
+  }
+  
+  header .navMobile {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    /* left: -300px; */
+    background-color: #fff;
+    width: 300px;
+    height: 100vh;
+  }
+  header .navMobile ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  header .navMobile ul:first-of-type li {
+    border-bottom: 1px solid black;
+  }
+  
+  header .navMobile.active {
+    transform: translateX(300px);
+  }
+  
