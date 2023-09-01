@@ -96,7 +96,13 @@ ul {
     border: 1px solid rgb(var(--violet));
   }
   
-
+  .logo {
+    height: 100px;
+  }
+  
+  .bi {
+    font-size: 30px;
+  }
   
   .price i {
     vertical-align: middle;
