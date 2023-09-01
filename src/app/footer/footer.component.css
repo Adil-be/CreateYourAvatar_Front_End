@@ -1,0 +1,8 @@
+footer {
+  padding: 40px;
+  background-color: rgb(var(--black));
+}
+
+.bi {
+  font-size: 30px;
+}
