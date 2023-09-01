@@ -1,0 +1,32 @@
+nav.navDesktop,
+nav.navDesktop ul {
+  display: flex;
+  align-items: center;
+}
+
+i.bi{
+  font-size: 40px;
+}
+
+.logo {
+  height: 100px;
+}
+
+nav {
+  justify-content: space-between;
+}
+nav ul {
+  gap: 50px;
+}
+
+@media screen and (max-width: 767px) {
+  nav.navDesktop ul {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  nav i.bi-list {
+    display: none;
+  }
+}
