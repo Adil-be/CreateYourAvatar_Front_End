@@ -4,6 +4,12 @@ nav.navDesktop ul {
   align-items: center;
 }
 
+nav .menu-link li a {
+  font-size: 1.5em ;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 i.bi{
   font-size: 40px;
 }

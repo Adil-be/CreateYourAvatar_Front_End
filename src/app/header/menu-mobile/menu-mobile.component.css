@@ -27,6 +27,8 @@ i.bi {
   border-bottom: 1px solid black;
 }
 
-.navMobile.active {
-  transform: translateX(300px);
+nav .menu-link li a {
+  font-size: 1.5em ;
+  font-weight: 600;
+  text-transform: uppercase;
 }
