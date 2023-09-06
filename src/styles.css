@@ -58,52 +58,58 @@ ul {
 /* ****************
     CLASS GLOBAL   
 ******************* */
+
+.logoEth {
+  display: inline-block;
+  width: 25px;
+  vertical-align: middle;
+}
 .violet {
-    color: rgb(var(--violet));
-  }
-  .blue {
-    color: rgb(var(--LibertyBlue));
-  }
-  .btn {
-    font-size: 1.6rem;
-    padding: 15px 20px;
-    border-radius: 10px;
-  }
-  
-  .btn-main {
-    color: #fff !important;
-    background: var(--gradViolet);
-  }
-  .btn-alt {
-    color: rgb(var(--violet)) !important;
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid rgb(var(--violet)) !important;
-  }
-  .btn.btn-alt:hover {
-    background: rgba(var(--LibertyBlue), 0.2);
-    /* color: #fff !important; */
-  }
-  
-  .myContanier {
-    max-width: 1440px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .btn.btn-main:hover {
-    color: rgb(var(--violet)) !important;
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid rgb(var(--violet));
-  }
-  
-  .logo {
-    height: 100px;
-  }
-  
-  .bi {
-    font-size: 30px;
-  }
-  
-  .price i {
-    vertical-align: middle;
-  }
+  color: rgb(var(--violet));
+}
+.blue {
+  color: rgb(var(--LibertyBlue));
+}
+.btn {
+  font-size: 1.6rem;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+.btn-main {
+  color: #fff !important;
+  background: var(--gradViolet);
+}
+.btn-alt {
+  color: rgb(var(--violet)) !important;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgb(var(--violet)) !important;
+}
+.btn.btn-alt:hover {
+  background: rgba(var(--LibertyBlue), 0.2);
+  /* color: #fff !important; */
+}
+
+.myContanier {
+  max-width: 1440px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn.btn-main:hover {
+  color: rgb(var(--violet)) !important;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgb(var(--violet));
+}
+
+.logo {
+  height: 100px;
+}
+
+.bi {
+  font-size: 30px;
+}
+
+.price i {
+  vertical-align: middle;
+}

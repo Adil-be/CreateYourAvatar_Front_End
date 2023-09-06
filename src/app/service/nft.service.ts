@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NftService {
+  private nftApiUrl: string;
 
-  constructor() { }
+  private route = '/api/nfts/';
 
-  public getAllNft  () {   
+  constructor(private http: HttpClient, api: ApiService) {
+    this.nftApiUrl = `${api.BaseUrl}${this.route}`;
+    console.log(this.nftApiUrl);
   }
 
-  public getNft(id:number){
-    
-
+  public getAllNft(): Observable<any> {
+    // const members:any;
+    return this.http.get(this.nftApiUrl).pipe(
+      map((json: any) => {
+        // console.log(json['hydra:member']);
+        const members: any = json['hydra:member'];
+        return members;
+      })
+    );
   }
+
+  public getNfById(id: number): Observable<any> {
+    return this.http.get(`${this.nftApiUrl}${id}`);
+  }
+  
 }
