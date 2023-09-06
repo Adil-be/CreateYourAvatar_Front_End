@@ -1,14 +1,3 @@
-<!-- <article *ngIf="nft && nftModel && firstImage">
-  <div class="imageProduitContainer" >
-    <img [src]="firstImage.path" class="w-100 mx-auto" />
-  </div>
-  <h3 *ngIf="nftModel">{{ nftModel.name }}</h3>
-  <p id="price" class="blue text price">
-    <span id="price">{{ nft.sellingPrice }}</span> ETH
-    <i class="fa-brands fa-ethereum"></i>
-  </p>
-</article> -->
-
 <div class="content" *ngIf="nft">
   <div class="nftImgContainer">
     <a [routerLink]="['/item/', nft.id]">
