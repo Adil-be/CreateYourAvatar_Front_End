@@ -17,10 +17,9 @@ export class NftService {
   }
 
   public getAllNft(): Observable<any> {
-    // const members:any;
+
     return this.http.get(this.nftApiUrl).pipe(
       map((json: any) => {
-        // console.log(json['hydra:member']);
         const members: any = json['hydra:member'];
         return members;
       })
@@ -30,5 +29,5 @@ export class NftService {
   public getNfById(id: number): Observable<any> {
     return this.http.get(`${this.nftApiUrl}${id}`);
   }
-  
+
 }
