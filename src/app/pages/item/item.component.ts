@@ -33,8 +33,6 @@ export class ItemComponent implements OnInit {
           nftModel = dataNftModel;
           this.nft.nftModel = nftModel;
         });
-      
-      console.log(this.nft);
     });
   }
 }

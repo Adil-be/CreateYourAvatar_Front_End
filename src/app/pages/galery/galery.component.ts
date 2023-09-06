@@ -36,7 +36,6 @@ export class GaleryComponent implements OnInit {
           nft.nftModel = matchingModel;
         });
         this.nfts = nfs;
-        // console.log(this.nfts);
       });
     });
   }

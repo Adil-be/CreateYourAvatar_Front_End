@@ -21,7 +21,6 @@ export class NftCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.nft.nftModel);
     this.firstImage = this.nft.nftModel.nftImages[0];
   }
 }
