@@ -1,1 +1,11 @@
-<p>galery works!</p>
+<section class="container">
+  <h1 class="text-center">Liste des Nft</h1>
+</section>
+
+<section id="dashbordImg" class="container">
+  <div class="row row-gap-3">
+    <div *ngFor="let nft of nfts" id="nft" class="col-10 offset-1 offset-md-0 col-md-6 col-lg-3">
+      <app-nft-card [nft]="nft"></app-nft-card>
+    </div>
+  </div>
+</section>
