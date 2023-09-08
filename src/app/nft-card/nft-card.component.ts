@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NftService } from '../service/nft.service';
-import { NftModelService } from '../service/nft-model.service';
-import { ApiService } from '../service/api.service';
+import { NftService } from '../services/nft.service';
+import { NftModelService } from '../services/nft-model.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-nft-card',

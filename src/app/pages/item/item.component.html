@@ -4,7 +4,14 @@
     *ngIf="nft"
   >
     <div id="imageProduitContainer" class="">
-      <img [src]="nft.nftModel.nftImages[0].path" alt="" class="" />
+      <img
+        *ngIf="nft.nftModel.nftImages; else placeholder"
+        [src]="nft.nftModel.nftImages[0].path"
+        alt=""
+        class=""
+      /><ng-template #placeholder>
+        <img src="../../../assets/images/placeholder.png" alt="" />
+      </ng-template>
     </div>
 
     <article

@@ -1,0 +1,113 @@
+<form
+  class="col-12 col-md-6 mx-auto"
+  [formGroup]="registrationForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>Register</h2>
+  <div formGroupName="identifier" class="formGroupName">
+    <div class="form-group my-3">
+      <label for="email" class="fs-3">Email address</label>
+      <input
+        class="form-control fs-3"
+        type="email"
+        formControlName="email"
+        id="email"
+        aria-describedby="emailHelp"
+        placeholder="Enter email"
+      />
+      <!-- <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        Email is required
+      </div> -->
+    </div>
+    <div class="form-group my-3">
+      <label for="password" class="fs-3">Password</label>
+      <input
+        class="form-control fs-3"
+        type="password"
+        formControlName="password"
+        id="password"
+        placeholder="Password"
+      />
+    </div>
+    <!-- <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+      Password is required
+    </div> -->
+  </div>
+
+  <div
+    formGroupName="optionals"
+    [hidden]="!registrationForm.get('identifier')!.valid"
+  >
+    <h2>Optionnals</h2>
+    <div class="form-group my-3">
+      <label for="username" class="fs-3">username</label>
+      <input
+        class="form-control fs-3"
+        type="text"
+        formControlName="username"
+        id="username"
+        aria-describedby="usernameHelp"
+        placeholder="Enter username"
+      />
+    </div>
+    <div class="form-group my-3">
+      <label for="firstname" class="fs-3">firstname</label>
+      <input
+        class="form-control fs-3"
+        type="text"
+        formControlName="firstname"
+        id="firstname"
+        placeholder="firstname"
+      />
+    </div>
+    <div class="form-group my-3">
+      <label for="lastname" class="fs-3">lastname</label>
+      <input
+        class="form-control fs-3"
+        type="text"
+        formControlName="lastname"
+        id="lastname"
+        placeholder="lastname"
+      />
+    </div>
+    <div class="form-group my-3">
+      <label for="birthday" class="fs-3">birthday</label>
+      <input
+        class="form-control fs-3"
+        type="date"
+        formControlName="birthday"
+        id="birthday"
+        placeholder="birthday"
+      />
+    </div>
+    <div class="form-group my-3">
+      <label for="gender" class="fs-3">gender</label>
+      <input
+        class="form-control fs-3"
+        type="text"
+        formControlName="gender"
+        id="gender"
+        placeholder="gender"
+      />
+    </div>
+  </div>
+  <div *ngIf="!registrationForm.valid || registrationForm.pristine">
+    <p>Complete the form to enable the button</p>
+  </div>
+  <input
+    [disabled]="!registrationForm.valid"
+    type="submit"
+    class="btn btn-main my-3"
+    value="submit"
+  />
+  <div
+    *ngIf="response"
+    class="notif"
+    [ngClass]="{
+      'notif-success': response.success,
+      'notif-danger': !response.success
+    }"
+  >
+    {{ response.message }}
+  </div>
+</form>
