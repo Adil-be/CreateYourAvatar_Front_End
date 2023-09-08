@@ -11,10 +11,14 @@ import { FooterModule } from './footer/footer.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NftCardComponent } from './nft-card/nft-card.component';
 import { TruncatePipe } from './pipe/truncate.pipe';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { RegistrationFormComponent } from './forms/registration-form/registration-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ItemComponent, GaleryComponent, NftCardComponent, TruncatePipe],
+  declarations: [AppComponent, HomeComponent, ItemComponent, GaleryComponent, NftCardComponent, TruncatePipe, RegistrationComponent, RegistrationFormComponent],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HeaderModule,

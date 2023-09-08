@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NftModelService } from 'src/app/service/nft-model.service';
-import { NftService } from 'src/app/service/nft.service';
-import { UserService } from 'src/app/service/user.service';
+import { NftModelService } from 'src/app/services/nft-model.service';
+import { NftService } from 'src/app/services/nft.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-item',
