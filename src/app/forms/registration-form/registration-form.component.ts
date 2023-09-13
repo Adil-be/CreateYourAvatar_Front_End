@@ -72,7 +72,6 @@ export class RegistrationFormComponent {
         user.birthday = birthday as Date;
       }
     }
-    console.log(user);
     return user;
   }
 }

@@ -7,4 +7,5 @@ export interface User {
   lastname?: string;
   gender?: string;
   birthday?: Date;
+  nfts?: any[];
 }

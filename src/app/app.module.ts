@@ -14,9 +14,11 @@ import { TruncatePipe } from './pipe/truncate.pipe';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationFormComponent } from './forms/registration-form/registration-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { LoginFormComponent } from './forms/login-form/login-form.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ItemComponent, GaleryComponent, NftCardComponent, TruncatePipe, RegistrationComponent, RegistrationFormComponent],
+  declarations: [AppComponent, HomeComponent, ItemComponent, GaleryComponent, NftCardComponent, TruncatePipe, RegistrationComponent, RegistrationFormComponent, LoginComponent, LoginFormComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
