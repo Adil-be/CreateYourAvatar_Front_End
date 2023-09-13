@@ -1,1 +1,14 @@
-<a class="btn btn-main" href="">Login</a>
+<div *ngIf="user; else loginButton">
+  <a [routerLink]="['account/', user.id]">
+    <img src="" alt="" />
+  </a>
+  <a [routerLink]="['account/', user.id]">
+    <img src="" alt="" />
+    <span>{{ user.username }}</span>
+  </a>
+  <i class="bi bi-box-arrow-right" (click)="logout()"></i>
+</div>
+
+<ng-template #loginButton>
+  <a else class="btn btn-main" routerLink="login">Login</a>
+</ng-template>

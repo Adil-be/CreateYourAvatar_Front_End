@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { Nft } from '../interface/nft';
 
 @Injectable({
   providedIn: 'root',
@@ -13,21 +14,22 @@ export class NftService {
 
   constructor(private http: HttpClient, api: ApiService) {
     this.nftApiUrl = `${api.BaseUrl}${this.route}`;
-    console.log(this.nftApiUrl);
   }
 
-  public getAllNft(): Observable<any> {
-
+  public getAllNft(): Observable<Nft[]> {
     return this.http.get(this.nftApiUrl).pipe(
       map((json: any) => {
-        const members: any = json['hydra:member'];
+        const members: Nft[] = json['hydra:member'];
         return members;
       })
     );
   }
 
-  public getNfById(id: number): Observable<any> {
-    return this.http.get(`${this.nftApiUrl}${id}`);
+  public getNfById(id: number): Observable<Nft> {
+    return this.http.get(`${this.nftApiUrl}${id}`).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
-
 }

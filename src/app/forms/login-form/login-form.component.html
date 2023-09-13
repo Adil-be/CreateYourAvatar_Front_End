@@ -1,0 +1,57 @@
+<form
+  class="col-12 col-md-6 mx-auto"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>Sign in</h2>
+
+  <div class="form-group my-3">
+    <label for="email" class="fs-3">Email address</label>
+    <input
+      class="form-control fs-3"
+      type="email"
+      formControlName="email"
+      id="email"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+    />
+    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+      Email is required
+    </div>
+  </div>
+  <div class="form-group my-3">
+    <label for="password" class="fs-3">Password</label>
+    <input
+      class="form-control fs-3"
+      type="password"
+      formControlName="password"
+      id="password"
+      placeholder="Password"
+    />
+  </div>
+  <div
+    [hidden]="password.valid || password.pristine"
+    class="alert alert-danger"
+  >
+    At least 4 characters
+  </div>
+  <div *ngIf="!loginForm.valid || loginForm.pristine">
+    <p>Complete the form to enable the button</p>
+  </div>
+  <input
+    [disabled]="!loginForm.valid"
+    type="submit"
+    class="btn btn-main my-3"
+    value="submit"
+  />
+  <div
+    *ngIf="response"
+    class="notif"
+    [ngClass]="{
+      'notif-success': response.success,
+      'notif-danger': !response.success
+    }"
+  >
+    {{ response.message }}
+  </div>
+</form>
