@@ -1,0 +1,31 @@
+<div class="content" *ngIf="nft">
+  <div class="nftImgContainer">
+    <a [routerLink]="['/item/', nft.id]">
+      <img
+        *ngIf="firstImage"
+        [src]="firstImage.path"
+        alt="image equilibrium"
+        class="nftImg"
+      />
+      <div class="overlay">
+        <img class="view" src="../../../../assets/images/icon-view.svg" alt="" />
+      </div>
+    </a>
+  </div>
+  <main>
+    <h3>
+      <a [routerLink]="['/item/', nft.id]" class="d-flex flex-column"
+        ><span>{{ nft.nftModel.name }}</span> <span>#{{ nft.id }}</span></a
+      >
+    </h3>
+    <p>{{ nft.nftModel.description | truncate }}</p>
+    <div class="data">
+      <span id="icon-eth" class="icon"> {{ nft.sellingPrice }} ETH</span>
+      <span id="icon-time" class="icon">3 days left</span>
+    </div>
+  </main>
+  <footer>
+    <img src="../../../../assets/images/image-avatar.png" alt="image profil" />
+    <p>Creation of <a href="" class="creator">Jules Wyrern </a></p>
+  </footer>
+</div>
