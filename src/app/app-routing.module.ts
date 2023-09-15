@@ -4,7 +4,7 @@ import { HomeComponent } from './features/pages/home/home.component';
 import { ItemComponent } from './features/pages/item/item.component';
 import { RegistrationComponent } from './features/pages/registration/registration.component';
 import { LoginComponent } from './features/pages/login/login.component';
-
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +24,7 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () =>
       import('./features/account/account.module').then((m) => m.AccountModule),
+    canActivate: [authGuard],
   },
 ];
 
