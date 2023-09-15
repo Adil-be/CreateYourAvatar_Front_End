@@ -1,0 +1,8 @@
+<section class="container">
+  <div *ngIf="user">User id: {{ user.id }}</div>
+  <div class="row">
+    <div *ngFor="let nft of latestNfts" class="col-md-3 col-12">
+      <app-nft-card [nft]="nft"></app-nft-card>
+    </div>
+  </div>
+</section>
