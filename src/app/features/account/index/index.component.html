@@ -1,0 +1,65 @@
+<mat-sidenav-container class="firstSection">
+  <mat-sidenav
+    #sidenav
+    position="end"
+    [fixedInViewport]="true"
+    [fixedTopGap]="100"
+    mode="over"
+    [(opened)]="opened"
+    id="SideBarAccount"
+    class="d-flex flex-column justify-content-between p-5"
+  >
+    <nav class="">
+      <div>
+        <h2 class="mb-5">Balance</h2>
+        <p id="balance" class="blue text price">
+          <span id="balanceValue">2025.33</span> ETH
+          <i class="fa-brands fa-ethereum"></i>
+        </p>
+      </div>
+      <div>
+        <a class="btn btn-main" href="">Connect your wallet</a>
+        <hr />
+      </div>
+
+      <ul>
+        <mat-nav-list>
+          <a href=""><i class="fa-solid fa-gear me-1"></i> dashboard</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <i class="fa-regular fa-message me-1"></i><a href=""> Whishlist</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <i class="fa-regular fa-circle-question me-1"></i
+          ><a href=""> Market</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <i class="fa-regular fa-circle-question me-1"></i
+          ><a href=""> Auction</a>
+        </mat-nav-list>
+        <hr />
+      </ul>
+      <ul>
+        <mat-nav-list
+          ><i class="fa-solid fa-gear me-1"></i
+          ><a href=""> Setting</a></mat-nav-list
+        >
+        <mat-nav-list>
+          <i class="fa-regular fa-message me-1"></i
+          ><a href=""> Notifications</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <i class="fa-regular fa-circle-question me-1"></i
+          ><a href=""> Support</a>
+        </mat-nav-list>
+        <mat-nav-list>
+          <i class="fa-regular fa-circle-question me-1"></i
+          ><a href=""> Log out</a>
+        </mat-nav-list>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

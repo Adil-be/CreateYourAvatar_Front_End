@@ -13,6 +13,7 @@ import { RegistrationModule } from './features/pages/registration/registration.m
 import { GaleryModule } from './features/pages/galery/galery.module';
 import { ItemModule } from './features/pages/item/item.module';
 import { AccountModule } from './features/account/account.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { AccountModule } from './features/account/account.module';
     GaleryModule,
     ItemModule,
     AccountModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

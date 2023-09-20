@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   ) {}
   public latestNfts: Nft[] = [];
 
-  public user: User | null = null;
+  public user!: User ;
 
   public ngOnInit(): void {
     this.auth.getCurrentUser()?.subscribe((res) => {

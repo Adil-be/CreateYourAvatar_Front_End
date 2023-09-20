@@ -1,0 +1,37 @@
+section .firstSection {
+  margin-bottom: 0;
+}
+
+#SideBarAccount {
+  height: 100%;
+  width: 250px;
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+mat-sidenav-container {
+  width: 100%;
+  background-color: inherit;
+  position: relative;
+}
+mat-sidenav-content {
+  position: relative;
+  overflow: hidden;
+}
+mat-sidenav-content #sidePannelButton {
+  padding-top: 100px;
+  padding: 100px 10px 0 10px;
+  width: fit-content;
+  position: fixed;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  top: 0;
+  right: 0;
+}
+mat-sidenav-content #sidePannelButton button {
+  background-color: inherit;
+  border: none;
+}

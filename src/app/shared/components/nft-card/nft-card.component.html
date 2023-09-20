@@ -8,7 +8,11 @@
         class="nftImg"
       />
       <div class="overlay">
-        <img class="view" src="../../../../assets/images/icon-view.svg" alt="" />
+        <img
+          class="view"
+          src="../../../../assets/images/icon-view.svg"
+          alt=""
+        />
       </div>
     </a>
   </div>
@@ -18,14 +22,16 @@
         ><span>{{ nft.nftModel.name }}</span> <span>#{{ nft.id }}</span></a
       >
     </h3>
-    <p>{{ nft.nftModel.description | truncate }}</p>
-    <div class="data">
+    <p>{{ nft.nftModel.description | truncate : 90 }}</p>
+    <div
+      class="data d-flex flex-column flex-lg-row flex-wrap py-3 justify-content-between"
+    >
       <span id="icon-eth" class="icon"> {{ nft.sellingPrice }} ETH</span>
-      <span id="icon-time" class="icon">3 days left</span>
+      <span id="icon-time" class="icon">{{ nft.inSale | inSale }}</span>
     </div>
   </main>
   <footer>
     <img src="../../../../assets/images/image-avatar.png" alt="image profil" />
-    <p>Creation of <a href="" class="creator">Jules Wyrern </a></p>
+    <p>Owner <a href="" class="creator">Jules Wyrern </a></p>
   </footer>
 </div>

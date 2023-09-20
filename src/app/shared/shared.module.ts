@@ -7,6 +7,8 @@ import { TruncatePipe } from './pipe/truncate.pipe';
 import { RouterModule } from '@angular/router';
 import { RegistrationFormComponent } from './forms/registration-form/registration-form.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
+import { InSalePipe } from './pipe/in-sale.pipe';
+import { GlassBgDirective } from './directives/glass-bg.directive';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     LoginFormComponent,
     RegistrationFormComponent,
     TruncatePipe,
+    InSalePipe,
+    GlassBgDirective,
   ],
   imports: [
     CommonModule,

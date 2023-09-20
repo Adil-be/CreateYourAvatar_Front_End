@@ -6,9 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  public constructor() {
+  }
   public active: boolean = false;
 
   handleMenu(value: boolean) {
     this.active = value;
   }
+
 }

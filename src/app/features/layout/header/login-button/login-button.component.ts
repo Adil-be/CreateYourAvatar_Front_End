@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { User } from 'src/app/core/interface/user';
+import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Component({
   selector: 'app-login-button',
@@ -8,18 +9,19 @@ import { User } from 'src/app/core/interface/user';
   styleUrls: ['./login-button.component.css'],
 })
 export class LoginButtonComponent implements OnInit {
-  constructor(private auth: AuthService) {
-    this.user = this.auth.getAuthUser();
-  }
+  constructor(
+    private localStorage: LocalStorageService,
+    private auth: AuthService
+  ) {}
   user: User | null = null;
 
   isLogged: boolean = false;
 
   ngOnInit() {
-    // this.auth.getCurrentUser()?.subscribe((user) => {
-    //   this.user = user;
-    //   this.isLogged = true;
-    // });
+    this.localStorage.user$.subscribe((user) => {
+      console.log(user);
+      this.user = user;
+    });
   }
 
   public logout() {
