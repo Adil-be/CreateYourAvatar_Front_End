@@ -1,16 +1,18 @@
 .content {
   position: relative;
   width: 100%;
-  padding: 25px;
+  padding: 7%;
   background-color: hsl(216, 50%, 16%);
   border-radius: 15px;
   margin-bottom: 20px;
 }
 .nftImgContainer {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 4/3;
+  border-radius: 15px;
 }
 .overlay {
   position: absolute;
@@ -44,13 +46,20 @@ img.view {
   visibility: visible;
 }
 h3 {
-  margin: 20px 0 10px 0;
+  margin: 10px 0 10px 0;
   font-size: 22px;
   font-weight: bold;
   color: hsl(0, 0%, 100%);
+  overflow: hidden;
+  white-space: nowrap;
 }
 a:hover {
   color: hsl(178, 100%, 50%);
+}
+
+main p {
+  height: 70px;
+  overflow-y: hidden;
 }
 p {
   color: hsl(215, 51%, 70%);
@@ -59,10 +68,7 @@ p {
   line-height: 1.6em;
 }
 .data {
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid hsla(215, 51%, 70%, 0.3);
-  padding: 15px 0;
 }
 
 .icon {
@@ -105,7 +111,10 @@ footer img {
 footer {
   display: flex;
   align-items: center;
-  padding: 15px 0;
+  padding: 15px 0 0 0;
+}
+footer p {
+  margin-bottom: 0;
 }
 .creator {
   color: #fff;

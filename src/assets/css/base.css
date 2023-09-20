@@ -2,6 +2,8 @@
   box-sizing: border-box;
   outline: none;
   text-decoration: none;
+  padding: 0;
+  margin:0;
   /* transition: all .2s ease 0s; */
   /* Visualisation des éléments */
   /*border: 1px dotted rgba(0,0,0,0.3);*/

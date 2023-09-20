@@ -1,6 +1,11 @@
 .btn.btn-main:hover {
-    color: rgb(var(--violet)) !important;
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid rgb(var(--violet));
-  }
-  
+  color: rgb(var(--violet)) !important;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgb(var(--violet));
+}
+
+img {
+  border-radius: 50%;
+  width: 40px;
+  margin-right: 15px;
+}

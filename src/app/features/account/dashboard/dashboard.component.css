@@ -1,0 +1,11 @@
+#profil img {
+  width: 80%;
+  margin: auto;
+  display: block;
+  max-width: 200px;
+}
+
+#profilCard {
+  width: fit-content;
+  margin: auto;
+}

@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (
   | Promise<boolean | UrlTree>
   | boolean
   | UrlTree => {
-  const currentUser = inject(AuthService).getAuthUser();
+  const currentUser = inject(AuthService).getCurrentUser();
 
   //  Grants or deny access to this route
   const isLogged = currentUser ? true : false;
