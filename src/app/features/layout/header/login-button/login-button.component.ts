@@ -19,7 +19,6 @@ export class LoginButtonComponent implements OnInit {
 
   ngOnInit() {
     this.localStorage.user$.subscribe((user) => {
-      console.log(user);
       this.user = user;
     });
   }

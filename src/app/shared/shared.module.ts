@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NftCardComponent } from './components/nft-card/nft-card.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TruncatePipe } from './pipe/truncate.pipe';
@@ -9,6 +9,7 @@ import { RegistrationFormComponent } from './forms/registration-form/registratio
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { InSalePipe } from './pipe/in-sale.pipe';
 import { GlassBgDirective } from './directives/glass-bg.directive';
+import { NftCardComponent } from './components/nft-card/nft-card.component';
 
 @NgModule({
   declarations: [

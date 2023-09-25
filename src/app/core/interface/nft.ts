@@ -1,3 +1,4 @@
+import { NftModel } from "./nft-model";
 import { User } from "./user";
 
 export interface Nft {
@@ -8,6 +9,6 @@ export interface Nft {
   inSale: boolean;
   purchaseDate: Date;
   NftValues: any[];
-  nftModel: any;
+  nftModel: NftModel;
   user: User;
 }

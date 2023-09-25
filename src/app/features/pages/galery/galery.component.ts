@@ -15,7 +15,7 @@ export class GaleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.nftService.getNftsWithModel().subscribe((data) => {
-      this.nfts = data;
+      this.nfts = this.nftService.extractNfts(data);
     });
   }
 }

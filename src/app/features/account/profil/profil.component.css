@@ -1,0 +1,17 @@
+img {
+  display: block;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
+  max-width: 150px;
+}
+section {
+  padding: 20px;
+}
+
+#gerneralSetting div a {
+    display: block;
+    text-decoration: underline;
+    cursor: pointer;
+}

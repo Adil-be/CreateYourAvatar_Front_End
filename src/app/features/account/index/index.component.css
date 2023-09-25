@@ -12,7 +12,7 @@ section .firstSection {
 
 mat-sidenav-container {
   width: 100%;
-  background-color: inherit;
+  background: inherit;
   position: relative;
 }
 mat-sidenav-content {

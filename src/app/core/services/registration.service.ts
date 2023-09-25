@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { User } from '../interface/user';
+import { UserRegistration } from '../interface/UserRegistration';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class RegistrationService {
     this.registerUrl = `${api.BaseUrl}${this.route}`;
   }
 
-  public registerUser(user: User): Observable<any> {
+  public registerUser(user: UserRegistration): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

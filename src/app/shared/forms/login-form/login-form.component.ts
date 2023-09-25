@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ResponseRegistration } from 'src/app/core/interface/ResponseRegistration';
+import { UserLogin } from 'src/app/core/interface/UserLogin';
 import { User } from 'src/app/core/interface/user';
 
 @Component({
@@ -31,7 +32,7 @@ export class LoginFormComponent {
 
   public onSubmit() {
     this.loginForm.value.email;
-    let user: User = {
+    let user: UserLogin = {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,
     };

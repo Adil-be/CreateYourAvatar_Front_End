@@ -7,6 +7,7 @@ import { UserCredential } from '../interface/user-credential';
 import { Observable, Observer, pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../services/local-storage.service';
+import { UserLogin } from '../interface/UserLogin';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class AuthService {
     this.urlApiUser = `${api.BaseUrl}${this.routeUser}`;
   }
 
-  login(user: User) {
+  login(user: UserLogin) {
     const jsonUser = { username: user.email, password: user.password };
 
     this.http.post<any>(this.urlApiLogin, jsonUser).subscribe((res) => {
@@ -49,8 +50,27 @@ export class AuthService {
   }
 
   isLogin(): boolean {
-    const token = localStorage.getItem('token');
-    return token ? true : false;
+    const UserCred = this.getCredentiel();
+
+    if (UserCred) {
+      try {
+        const expirationDate = new Date(UserCred.exp * 1000);
+        const now = new Date();
+
+        if (now < expirationDate) {
+          return true;
+        } else {
+          this.localStorage.clearUserCredentials();
+          this.localStorage.clearToken();
+          this.localStorage.clearUser();
+          return false;
+        }
+      } catch (error) {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   logout(): void {
@@ -63,9 +83,13 @@ export class AuthService {
 
   getCredentiel(): UserCredential | null {
     const JSONCredentials = localStorage.getItem('userCredentials');
-    console.log(JSONCredentials);
 
     return JSONCredentials ? JSON.parse(JSONCredentials) : null;
+  }
+  getToken(): string | null {
+    const Token = localStorage.getItem('token');
+
+    return Token ? Token : null;
   }
 
   getCurrentUser(): Observable<User> | undefined {
@@ -74,6 +98,7 @@ export class AuthService {
     if (credential) {
       return this.http.get<User>(`${this.urlApiUser}/${credential.id}`);
     } else {
+      console.log('test');
       return undefined;
     }
   }

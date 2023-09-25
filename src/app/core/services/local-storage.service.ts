@@ -17,11 +17,11 @@ export class LocalStorageService {
   public user$ = this._user$.asObservable();
 
   constructor() {
-    const tokenJson = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const userCredentialsJson = localStorage.getItem('userCredentials');
     const userJson = localStorage.getItem('user');
-    if (tokenJson) {
-      this._token$.next(JSON.parse(tokenJson));
+    if (token) {
+      this._token$.next(token);
     }
     if (userCredentialsJson) {
       this._userCredential$.next(JSON.parse(userCredentialsJson));
@@ -32,8 +32,7 @@ export class LocalStorageService {
   }
 
   setToken(token: string) {
-    const jsonData = JSON.stringify(token);
-    localStorage.setItem('token', jsonData);
+    localStorage.setItem('token', token);
     this._token$.next(token);
   }
 
