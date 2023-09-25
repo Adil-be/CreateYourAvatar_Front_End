@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   ) {}
   public latestNfts: Nft[] = [];
 
-  public user!: User ;
+  public user!: User;
 
   public ngOnInit(): void {
     this.auth.getCurrentUser()?.subscribe((res) => {
@@ -28,10 +28,10 @@ export class DashboardComponent implements OnInit {
             'user.id': res.id!,
             'order[purchaseDate]': 'DESC',
             // 'page': 1,
-            'itemsPerPage': 4,
+            itemsPerPage: 4,
           })
-          .subscribe((nfts) => {
-            this.latestNfts = nfts;
+          .subscribe((res) => {
+            this.latestNfts = this.nftService.extractNfts(res);
           });
       }
     });

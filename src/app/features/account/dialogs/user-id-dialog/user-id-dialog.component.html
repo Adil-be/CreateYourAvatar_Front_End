@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Change your account setting</h1>
+<div mat-dialog-content>
+  <p>What would you like to be called ?</p>
+  <p>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="data.username" [value]="data.username" />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>username</mat-label>
+      <input matInput [(ngModel)]="data.email" />
+    </mat-form-field>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">no change</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>submit</button>
+</div>

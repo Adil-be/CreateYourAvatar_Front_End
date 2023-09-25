@@ -22,15 +22,16 @@ export class NftService {
 
   public getAllNft(
     param: { [param: string]: string | number | boolean } = {}
-  ): Observable<Nft[]> {
+  ): Observable<any> {
     let queryParams = new HttpParams({ fromObject: param });
 
-    return this.http.get(this.nftApiUrl, { params: queryParams }).pipe(
-      map((json: any) => {
-        const members: Nft[] = json['hydra:member'];
-        return members;
-      })
-    );
+    return this.http.get(this.nftApiUrl, { params: queryParams });
+    // .pipe(
+    //   map((json: any) => {
+    //     const members: Nft[] = json['hydra:member'];
+    //     return members;
+    //   })
+    // );
   }
 
   public getNfById(id: number): Observable<Nft> {
@@ -59,26 +60,28 @@ export class NftService {
     param: { [param: string]: string | number | boolean } = {}
   ): Observable<Nft[]> {
     return this.getAllNft(param).pipe(
-      mergeMap((nfts) => {
+      mergeMap((json) => {
         return this.getAllNftModels().pipe(
           map((dataModel) => {
             let nftModels: NftModel[] = dataModel;
 
+            let nfts: Nft[] = json['hydra:member'];
+
             nfts.forEach((nft: Nft) => {
               const modelId = nft.nftModel.id;
-              let matchingModel = nftModels.find(
+              const matchingModel = nftModels.find(
                 (model) => modelId === model.id
               );
-              nft.nftModel = matchingModel;
+              nft.nftModel = matchingModel as NftModel;
             });
 
-            return nfts;
+            return json;
           })
         );
       })
     );
   }
-  
+
   public getNftWithModel(id: number): Observable<Nft> {
     return this.getNfById(id).pipe(
       switchMap((nft) => {
@@ -93,5 +96,7 @@ export class NftService {
     );
   }
 
-  
+  public extractNfts(json: any) {
+    return json['hydra:member'];
+  }
 }

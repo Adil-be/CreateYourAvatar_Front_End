@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ResponseRegistration } from 'src/app/core/interface/ResponseRegistration';
-import { User } from 'src/app/core/interface/user';
+import { UserRegistration } from 'src/app/core/interface/UserRegistration';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 
 @Component({
@@ -35,15 +35,15 @@ export class RegistrationFormComponent {
   }
 
   public onSubmit() {
-    let user: User = this.constructUser();
+    let user: UserRegistration = this.constructUser();
 
     this.rs.registerUser(user).subscribe((response) => {
       this.response = response;
     });
   }
 
-  public constructUser(): User {
-    let user: User = {
+  public constructUser(): UserRegistration {
+    let user: UserRegistration = {
       email: this.registrationForm.value.identifier!.email!,
       password: this.registrationForm.value.identifier!.password!,
     };
