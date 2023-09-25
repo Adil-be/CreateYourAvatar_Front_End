@@ -17,17 +17,31 @@ export class LocalStorageService {
   public user$ = this._user$.asObservable();
 
   constructor() {
-    const token = localStorage.getItem('token');
+    this.InitLocalStorage();
+  }
+
+  InitLocalStorage() {
     const userCredentialsJson = localStorage.getItem('userCredentials');
-    const userJson = localStorage.getItem('user');
-    if (token) {
-      this._token$.next(token);
-    }
     if (userCredentialsJson) {
-      this._userCredential$.next(JSON.parse(userCredentialsJson));
-    }
-    if (userJson) {
-      this._user$.next(JSON.parse(userJson));
+      try {
+        const userCredentials = JSON.parse(userCredentialsJson);
+        const expirationDate = new Date(userCredentials.exp * 1000);
+        const now = new Date();
+
+        if (expirationDate < now) {
+          this.clearAll();
+        } else {
+          this._userCredential$.next(userCredentials);
+
+          const token = localStorage.getItem('token');
+          const userJson = localStorage.getItem('user');
+
+          if (token) this._token$.next(token);
+          if (userJson) this._user$.next(userJson);
+        }
+      } catch (error) {
+        this.clearAll();
+      }
     }
   }
 
@@ -59,5 +73,11 @@ export class LocalStorageService {
   clearUser() {
     localStorage.removeItem('user');
     this._user$.next(null);
+  }
+
+  clearAll() {
+    this.clearToken();
+    this.clearUser();
+    this.clearUserCredentials();
   }
 }
