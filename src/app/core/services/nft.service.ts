@@ -6,6 +6,7 @@ import { Nft } from '../interface/nft';
 import { NftModel } from '../interface/nft-model';
 import { ParamPagination } from '../interface/param-pagination';
 import { ParamNft } from '../interface/param-nft';
+import { NftData } from '../interface/nft-data';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +23,10 @@ export class NftService {
     this.nftModelApi = `${api.BaseUrl}${this.routeModel}`;
   }
 
-  public getAllNft(param: ParamNft & ParamPagination = {}): Observable<any> {
+  public getAllNft(param: ParamNft & ParamPagination = {}): Observable<NftData> {
     let queryParams = new HttpParams({ fromObject: param });
 
-    return this.http.get(this.nftApiUrl, { params: queryParams });
+    return this.http.get<NftData>(this.nftApiUrl, { params: queryParams });
   }
 
   public getNfById(id: number): Observable<Nft> {
@@ -45,14 +46,14 @@ export class NftService {
     );
   }
 
-  public getNftModelById(id: number): Observable<any> {
+  public getNftModelById(id: number): Observable<NftModel> {
     let url: string = `${this.nftModelApi}${id}`;
     return this.http.get<any>(url);
   }
 
   public getNftsWithModel(
     param: ParamNft & ParamPagination = {}
-  ): Observable<any> {
+  ): Observable<NftData> {
     return this.getAllNft(param).pipe(
       mergeMap((json) => {
         return this.getAllNftModels().pipe(
@@ -76,7 +77,7 @@ export class NftService {
     );
   }
 
-  public getNftWithModel(id: number): Observable<any> {
+  public getNftWithModel(id: number): Observable<Nft> {
     return this.getNfById(id).pipe(
       switchMap((nft) => {
         const id = nft.nftModel.id;
