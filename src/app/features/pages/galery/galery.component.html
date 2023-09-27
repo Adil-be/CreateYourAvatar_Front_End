@@ -1,8 +1,4 @@
-<section class="container firstSection">
-  <h1 class="text-center">Liste des Nft</h1>
-</section>
-
-<section id="dashbordImg" class="container">
+<div>
   <div class="row row-gap-1">
     <div
       *ngFor="let nft of nfts"
@@ -12,4 +8,14 @@
       <app-nft-card [nft]="nft"></app-nft-card>
     </div>
   </div>
-</section>
+  <mat-paginator
+    [length]="max"
+    [pageSize]="itemsPerPage"
+    [pageIndex]="currentIndex"
+    [pageSizeOptions]="[10, 20, 40, 100]"
+    [showFirstLastButtons]="true"
+    aria-label="Select page"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
+</div>

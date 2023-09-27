@@ -1,0 +1,45 @@
+#SideBarAccount {
+  padding: 20px;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+mat-sidenav-container {
+  width: 100%;
+  background: inherit;
+  position: relative;
+}
+/* mat-sidenav-content {
+
+} */
+mat-sidenav-content #sidePannelButton {
+  text-align: end;
+}
+mat-sidenav-content #sidePannelButton span {
+  cursor: pointer;
+}
+mat-sidenav-content #sidePannelButton button {
+  background-color: inherit;
+  border: none;
+}
+
+mat-slider {
+  width: 200px;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 10px 0;
+  max-width: 284px;
+}
+.label-container input {
+  width: 50px;
+  text-align: center;
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}

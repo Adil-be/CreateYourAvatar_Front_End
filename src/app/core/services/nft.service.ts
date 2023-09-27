@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Nft } from '../interface/nft';
 import { NftModel } from '../interface/nft-model';
+import { ParamPagination } from '../interface/param-pagination';
+import { ParamNft } from '../interface/param-nft';
 
 @Injectable({
   providedIn: 'root',
@@ -20,18 +22,10 @@ export class NftService {
     this.nftModelApi = `${api.BaseUrl}${this.routeModel}`;
   }
 
-  public getAllNft(
-    param: { [param: string]: string | number | boolean } = {}
-  ): Observable<any> {
+  public getAllNft(param: ParamNft & ParamPagination = {}): Observable<any> {
     let queryParams = new HttpParams({ fromObject: param });
 
     return this.http.get(this.nftApiUrl, { params: queryParams });
-    // .pipe(
-    //   map((json: any) => {
-    //     const members: Nft[] = json['hydra:member'];
-    //     return members;
-    //   })
-    // );
   }
 
   public getNfById(id: number): Observable<Nft> {
@@ -57,8 +51,8 @@ export class NftService {
   }
 
   public getNftsWithModel(
-    param: { [param: string]: string | number | boolean } = {}
-  ): Observable<Nft[]> {
+    param: ParamNft & ParamPagination = {}
+  ): Observable<any> {
     return this.getAllNft(param).pipe(
       mergeMap((json) => {
         return this.getAllNftModels().pipe(
@@ -82,7 +76,7 @@ export class NftService {
     );
   }
 
-  public getNftWithModel(id: number): Observable<Nft> {
+  public getNftWithModel(id: number): Observable<any> {
     return this.getNfById(id).pipe(
       switchMap((nft) => {
         const id = nft.nftModel.id;
