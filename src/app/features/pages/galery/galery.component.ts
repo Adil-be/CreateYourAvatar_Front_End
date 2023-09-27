@@ -1,24 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NftService } from '../../../core/services/nft.service';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { NftData } from 'src/app/core/interface/nft-data';
+import { ParamPagination } from 'src/app/core/interface/param-pagination';
+import { ParamNft } from 'src/app/core/interface/param-nft';
+import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-galery',
   templateUrl: './galery.component.html',
   styleUrls: ['./galery.component.css'],
+  providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntlService }],
 })
-export class GaleryComponent implements OnInit {
+export class GaleryComponent implements OnInit, OnChanges {
   public nfts: any[] = [];
 
-  public nftModels: any[] = [];
+  @Input() optionNft!: ParamNft;
+
+  optionPaginanition: ParamPagination = {};
+
+  max: number = 0;
+
+  currentIndex: number = 0;
+  itemsPerPage: number = 20;
+
+  get currentPage() {
+    return this.currentIndex + 1;
+  }
 
   public constructor(private nftService: NftService) {}
 
   ngOnInit(): void {
-    let option = {
-      page: 1,
+    this.getGaleryNft();
+  }
+
+  ngOnChanges(): void {
+    this.getGaleryNft();
+  }
+
+  handlePageEvent(pageEvent: PageEvent) {
+    this.currentIndex = pageEvent.pageIndex;
+    this.itemsPerPage = pageEvent.pageSize;
+    this.getGaleryNft();
+  }
+
+  getGaleryNft() {
+    this.nftService
+      .getNftsWithModel(this.getOption())
+      .subscribe((data: NftData) => {
+        console.log('data ', data);
+        this.max = data['hydra:totalItems'];
+        this.nfts = this.nftService.extractNfts(data);
+      });
+  }
+
+  private getOption(): ParamPagination & ParamNft {
+    this.optionPaginanition = {
+      page: this.currentPage,
+      itemsPerPage: this.itemsPerPage,
     };
-    this.nftService.getNftsWithModel(option).subscribe((data) => {
-      this.nfts = this.nftService.extractNfts(data);
-    });
+
+    let test = Object.assign({}, this.optionPaginanition, this.optionNft);
+    console.log('test ', test);
+    return test;
   }
 }

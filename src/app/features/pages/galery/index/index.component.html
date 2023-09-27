@@ -1,0 +1,104 @@
+<mat-sidenav-container
+  class="example-sidenav-container"
+  [style.paddingTop.px]="100"
+>
+  <mat-sidenav
+    id="SideBarAccount"
+    #sidenav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="true"
+    [(opened)]="isOpen"
+    fixedTopGap="100"
+  >
+    <h4>Search</h4>
+    <div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Model name</mat-label>
+          <input matInput placeholder="" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Model description</mat-label>
+          <input matInput placeholder="" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <h4>Option</h4>
+    <div class="d-flex flex-md-column">
+      <mat-checkbox [(ngModel)]="filter.inSale" class="example-margin"
+        >In sale</mat-checkbox
+      >
+      <mat-checkbox class="example-margin" [(ngModel)]="filter.featured"
+        >featured</mat-checkbox
+      >
+    </div>
+    <h4>Price</h4>
+    <div>
+      <div class="label-container">
+        <label id="name-label" class="name-label">min</label>
+        <input [(ngModel)]="filter.priceMin" />
+
+        <label id="name-label" class="name-label">max</label>
+        <input [(ngModel)]="filter.priceMax" />
+      </div>
+      <div class="mx-4" *ngIf="!mobileQuery.matches">
+        <mat-slider #slider min="0" max="10" step="0.01">
+          <input [(ngModel)]="filter.priceMin" matSliderStartThumb />
+          <input [(ngModel)]="filter.priceMax" matSliderEndThumb />
+        </mat-slider>
+      </div>
+    </div>
+    <h4>Sort</h4>
+    <div class="d-flex flex-column">
+      <mat-checkbox class="example-margin" [(ngModel)]="filter.price.check"
+        >price</mat-checkbox
+      >
+      <div>
+        <mat-radio-group
+          [disabled]="!filter.price.check"
+          aria-label="Select an option"
+          [(ngModel)]="filter.price.order"
+        >
+          <mat-radio-button value="ASC">ASC</mat-radio-button>
+          <mat-radio-button value="ASC">DESC</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="d-flex flex-column">
+      <mat-checkbox class="example-margin" [(ngModel)]="filter.nftModel.check"
+        >Creation Date</mat-checkbox
+      >
+      <div>
+        <mat-radio-group
+          [disabled]="!filter.nftModel.check"
+          aria-label="Select an option"
+          [(ngModel)]="filter.nftModel.order"
+        >
+          <mat-radio-button value="ASC">ASC</mat-radio-button>
+          <mat-radio-button value="DESC">DESC</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button mat-raised-button color="primary" (click)="handleSubmit()">
+        Filter
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <section class="container">
+      <h1 class="text-center">Liste des Nft</h1>
+      <div id="sidePannelButton">
+        <span>
+          Filter <i class="bi bi-filter" (click)="sidenav.toggle()"></i>
+        </span>
+      </div>
+      <app-galery [optionNft]="optionNft"></app-galery>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

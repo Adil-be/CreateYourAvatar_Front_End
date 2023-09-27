@@ -11,6 +11,7 @@ import { InSalePipe } from './pipe/in-sale.pipe';
 import { GlassBgDirective } from './directives/glass-bg.directive';
 import { NftCardComponent } from './components/nft-card/nft-card.component';
 
+
 @NgModule({
   declarations: [
     NftCardComponent,
@@ -18,7 +19,7 @@ import { NftCardComponent } from './components/nft-card/nft-card.component';
     RegistrationFormComponent,
     TruncatePipe,
     InSalePipe,
-    GlassBgDirective,
+    GlassBgDirective, 
   ],
   imports: [
     CommonModule,
