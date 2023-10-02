@@ -1,5 +1,4 @@
-<mat-sidenav-container
->
+<mat-sidenav-container>
   <mat-sidenav
     id="SideBarAccount"
     #sidenav
@@ -26,12 +25,8 @@
 
     <h4>Option</h4>
     <div class="d-flex flex-md-column">
-      <mat-checkbox [(ngModel)]="filter.inSale" 
-        >In sale</mat-checkbox
-      >
-      <mat-checkbox [(ngModel)]="filter.featured"
-        >featured</mat-checkbox
-      >
+      <mat-checkbox [(ngModel)]="filter.inSale">In sale</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filter.featured">featured</mat-checkbox>
     </div>
     <h4>Price</h4>
     <div>
@@ -66,14 +61,14 @@
       </div>
     </div>
     <div class="d-flex flex-column">
-      <mat-checkbox  [(ngModel)]="filter.nftModel.check"
-        >Creation Date</mat-checkbox
+      <mat-checkbox [(ngModel)]="filter.purchase.check"
+        >Purchase Date</mat-checkbox
       >
       <div>
         <mat-radio-group
-          [disabled]="!filter.nftModel.check"
+          [disabled]="!filter.purchase.check"
           aria-label="Select an option"
-          [(ngModel)]="filter.nftModel.order"
+          [(ngModel)]="filter.purchase.order"
         >
           <mat-radio-button value="ASC">ASC</mat-radio-button>
           <mat-radio-button value="DESC">DESC</mat-radio-button>
@@ -90,13 +85,13 @@
 
   <mat-sidenav-content>
     <section class="container">
-      <h1 class="text-center">Liste des Nft</h1>
+      <h1 class="text-center">Your nfts</h1>
       <div id="sidePannelButton">
         <span>
           Filter <i class="bi bi-filter" (click)="sidenav.toggle()"></i>
         </span>
       </div>
-      <app-nft-list [optionNft]="optionNft"></app-nft-list>
+      <app-nft-list *ngIf="options" [optionNft]="options"></app-nft-list>
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -3,11 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndexComponent } from './index/index.component';
 import { ProfilComponent } from './profil/profil.component';
+import { UserGaleryComponent } from './user-galery/user-galery.component';
+import { NftDetailComponent } from './Nft/detail/nft-detail.component';
+import { authGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -20,6 +24,14 @@ const routes: Routes = [
       {
         path: 'profil',
         component: ProfilComponent,
+      },
+      {
+        path: 'user-galery',
+        component: UserGaleryComponent,
+      },
+      {
+        path: 'nft/:id',
+        component: NftDetailComponent,
       },
     ],
   },

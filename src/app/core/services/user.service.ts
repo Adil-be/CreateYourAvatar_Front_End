@@ -31,7 +31,7 @@ export class UserService {
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/merge-patch+json', // Ajoutez cette ligne
+      'Content-Type': 'application/merge-patch+json',
     });
 
     return this.http.patch<any>(`${this.userApiUrl}/${id}`, partialUser, {

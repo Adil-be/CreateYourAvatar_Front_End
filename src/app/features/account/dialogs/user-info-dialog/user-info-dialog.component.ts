@@ -23,4 +23,5 @@ export class UserInfoDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+ 
 }
