@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GaleryComponent } from './galery.component';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 import { GaleryRoutingModule } from './galery-routing.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -13,9 +13,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { NftListComponent } from './nft-list/nft-list.component';
 
 @NgModule({
-  declarations: [GaleryComponent, IndexComponent],
+  declarations: [NftListComponent, IndexComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -31,6 +32,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatRadioModule,
     MatButtonModule,
   ],
-  bootstrap: [GaleryComponent],
+  bootstrap: [IndexComponent],
 })
 export class GaleryModule {}

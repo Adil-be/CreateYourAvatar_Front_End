@@ -9,6 +9,7 @@
     STYLE GLOBAL   
 ******************* */
 :root {
+  --cyan: 0, 189, 149;
   --violet: 113, 47, 121;
   --LibertyBlue: 76, 76, 157;
   --queenBlue: 72, 99, 157;
@@ -59,8 +60,18 @@ ul {
     CLASS GLOBAL   
 ******************* */
 
-.firstSection {
-  padding-top: 150px;
+.myBtn {
+  display: inline-block;
+  border: 3px solid rgb(var(--cyan));
+  border-radius: 2px;
+  color: rgb(var(--cyan)) !important;
+  background-color: inherit;
+  padding: 10px 20px;
+}
+
+.myBtn:hover {
+  background-color: rgba(var(--cyan), 0.3);
+  transform: translate(0, 10%);
 }
 
 .logoEth {
@@ -123,9 +134,6 @@ ul {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.price i {
-  vertical-align: middle;
-}
 
 html,
 body {

@@ -37,7 +37,7 @@ export class LocalStorageService {
           const userJson = localStorage.getItem('user');
 
           if (token) this._token$.next(token);
-          if (userJson) this._user$.next(userJson);
+          if (userJson) this._user$.next(JSON.parse(userJson));
         }
       } catch (error) {
         this.clearAll();

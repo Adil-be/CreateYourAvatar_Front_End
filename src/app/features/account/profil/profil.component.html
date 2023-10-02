@@ -1,4 +1,4 @@
-<section class="container">
+<section class="container" *ngIf="user">
   <h1>Profil</h1>
   <div class="row glassBg p-5 my-5">
     <h2>profil picture</h2>
@@ -16,8 +16,8 @@
     <h2>gerneral settings</h2>
 
     <div class="col-10 offset-1 col-md-5 offset-md-0 p-3" id="profilCard">
-      <p><strong>username</strong> : {{ user.username! }}</p>
       <p><strong>email</strong> : {{ user.email }}</p>
+      <p><strong>username</strong> : {{ user.username! }}</p>
     </div>
     <div class="col-10 offset-1 col-md-4 offset-md-0 text center">
       <button class="btn btn-main" (click)="openIdDialog()">modify info</button>

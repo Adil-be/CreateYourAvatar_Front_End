@@ -1,20 +1,17 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ParamNft, order } from 'src/app/core/interface/param-nft';
-import { Subject } from 'rxjs';
+import { User } from 'src/app/core/interface/user';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css'],
+  selector: 'app-user-galery',
+  templateUrl: './user-galery.component.html',
+  styleUrls: ['./user-galery.component.css'],
 })
-export class IndexComponent implements OnDestroy {
-  eventsSubject: Subject<void> = new Subject<void>();
-
+export class UserGaleryComponent implements OnInit, OnDestroy {
+  private user!: User;
+  test = true;
   filter = {
     inSale: null,
     featured: null,
@@ -25,25 +22,40 @@ export class IndexComponent implements OnDestroy {
       check: null,
       order: 'asc',
     },
-    nftModel: {
-      check: null,
-      order: 'asc',
+    purchase: {
+      check: true,
+      order: 'desc',
     },
   };
+  optionUser!: ParamNft;
 
-  optionNft: ParamNft = {};
+  options!: ParamNft;
 
   isOpen = false;
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private auth: AuthService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     console.log('mobileQuery ', this.mobileQuery.matches);
 
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+  ngOnInit(): void {
+    this.auth.getCurrentUser()?.subscribe((data) => {
+      this.user = data;
+
+      this.optionUser = {
+        'user.id': this.user.id,
+      };
+      this.options = this.createOption();
+    });
   }
 
   ngOnDestroy(): void {
@@ -51,6 +63,10 @@ export class IndexComponent implements OnDestroy {
   }
 
   public handleSubmit() {
+    this.options = this.createOption();
+  }
+
+  public createOption(): ParamNft {
     let optionNft: ParamNft = {};
     if (this.filter.inSale) optionNft.inSale = this.filter.inSale;
     if (this.filter.featured) optionNft.featured = this.filter.featured;
@@ -60,9 +76,8 @@ export class IndexComponent implements OnDestroy {
       optionNft['sellingPrice[lt]'] = this.filter.priceMax;
     if (this.filter.price.check)
       optionNft['order[sellingPrice]'] = this.filter.price.order as order;
-    if (this.filter.nftModel.check)
-      optionNft['order[nftModel.createdAt]'] = this.filter.nftModel
-        .order as order;
-    this.optionNft = optionNft;
+    if (this.filter.purchase.check)
+      optionNft['order[purchaseDate]'] = this.filter.purchase.order as order;
+    return Object.assign({}, optionNft, this.optionUser);
   }
 }

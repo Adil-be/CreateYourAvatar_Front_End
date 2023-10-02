@@ -1,19 +1,20 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { NftService } from '../../../core/services/nft.service';
+
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NftData } from 'src/app/core/interface/nft-data';
 import { ParamPagination } from 'src/app/core/interface/param-pagination';
 import { ParamNft } from 'src/app/core/interface/param-nft';
 import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
-import { Observable, Subscription } from 'rxjs';
+
+import { NftService } from 'src/app/core/services/nft.service';
 
 @Component({
-  selector: 'app-galery',
-  templateUrl: './galery.component.html',
-  styleUrls: ['./galery.component.css'],
+  selector: 'app-nft-list',
+  templateUrl: './nft-list.component.html',
+  styleUrls: ['./nft-list.component.css'],
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntlService }],
 })
-export class GaleryComponent implements OnInit, OnChanges {
+export class NftListComponent implements OnInit, OnChanges {
   public nfts: any[] = [];
 
   @Input() optionNft!: ParamNft;
@@ -61,8 +62,6 @@ export class GaleryComponent implements OnInit, OnChanges {
       itemsPerPage: this.itemsPerPage,
     };
 
-    let test = Object.assign({}, this.optionPaginanition, this.optionNft);
-    console.log('test ', test);
-    return test;
+    return Object.assign({}, this.optionPaginanition, this.optionNft);
   }
 }

@@ -10,7 +10,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { InSalePipe } from './pipe/in-sale.pipe';
 import { GlassBgDirective } from './directives/glass-bg.directive';
 import { NftCardComponent } from './components/nft-card/nft-card.component';
-
+import { NftOwnedComponent } from './components/nft-owned/nft-owned.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { NftCardComponent } from './components/nft-card/nft-card.component';
     RegistrationFormComponent,
     TruncatePipe,
     InSalePipe,
-    GlassBgDirective, 
+    GlassBgDirective,
+    NftOwnedComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +34,8 @@ import { NftCardComponent } from './components/nft-card/nft-card.component';
     LoginFormComponent,
     RegistrationFormComponent,
     TruncatePipe,
+    NftOwnedComponent,
+    InSalePipe
   ],
 })
 export class SharedModule {}

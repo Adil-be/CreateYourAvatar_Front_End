@@ -7,6 +7,7 @@ import { NftModel } from '../interface/nft-model';
 import { ParamPagination } from '../interface/param-pagination';
 import { ParamNft } from '../interface/param-nft';
 import { NftData } from '../interface/nft-data';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,18 @@ export class NftService {
   private routeNft = '/api/nfts/';
   private routeModel = '/api/nft_models/';
 
-  constructor(private http: HttpClient, api: ApiService) {
+  constructor(
+    private http: HttpClient,
+    api: ApiService,
+    private auth: AuthService
+  ) {
     this.nftApiUrl = `${api.BaseUrl}${this.routeNft}`;
     this.nftModelApi = `${api.BaseUrl}${this.routeModel}`;
   }
 
-  public getAllNft(param: ParamNft & ParamPagination = {}): Observable<NftData> {
+  public getAllNft(
+    param: ParamNft & ParamPagination = {}
+  ): Observable<NftData> {
     let queryParams = new HttpParams({ fromObject: param });
 
     return this.http.get<NftData>(this.nftApiUrl, { params: queryParams });
@@ -93,5 +100,17 @@ export class NftService {
 
   public extractNfts(json: any) {
     return json['hydra:member'];
+  }
+
+  public patchNft(id: number, data: any) {
+    const token = this.auth.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/merge-patch+json', 
+    });
+    return this.http.patch(`${this.nftApiUrl}${id}`, data, {
+      headers: headers,
+    });
   }
 }

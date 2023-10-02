@@ -40,7 +40,7 @@ img.view {
   opacity: 0.3;
 }
 .nftImgContainer:hover {
-  background: hsl(178, 100%, 50%);
+  background: rgb(0, 255, 247);
 }
 .nftImgContainer:hover .view {
   visibility: visible;
@@ -61,34 +61,8 @@ main p {
   height: 70px;
   overflow-y: hidden;
 }
-p {
-  color: hsl(215, 51%, 70%);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.6em;
-}
 .data {
   border-bottom: 1px solid hsla(215, 51%, 70%, 0.3);
-}
-
-footer img {
-  width: 35px;
-  border: 2px solid #fff;
-
-  border-radius: 50%;
-  margin-right: 15px;
-}
-footer {
-  display: flex;
-  align-items: center;
-  padding: 15px 0 0 0;
-}
-footer p {
-  margin-bottom: 0;
-}
-.creator {
-  color: #fff;
-  font-style: normal;
 }
 
 .icon {

@@ -26,4 +26,7 @@
 }
 .price i {
   vertical-align: middle;
+  font-size: 2rem;
+  color: black;
+  margin-right: 10px;
 }

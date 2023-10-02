@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ResponseRegistration } from 'src/app/core/interface/ResponseRegistration';
 import { User } from 'src/app/core/interface/user';
-import { UserInfoDialogComponent } from '../dialogs/user-info-dialog/user-info-dialog.component';
+import {
+  UserInfoDialogComponent,
+  userInfoData,
+} from '../dialogs/user-info-dialog/user-info-dialog.component';
 import { UserIdDialogComponent } from '../dialogs/user-id-dialog/user-id-dialog.component';
 import { PasswordDialogComponent } from '../dialogs/password-dialog/password-dialog.component';
 import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -18,7 +21,8 @@ export class ProfilComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private matDialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   public response: ResponseRegistration | null = null;
@@ -40,21 +44,35 @@ export class ProfilComponent implements OnInit {
         lastname: this.user.lastname,
       },
     });
-    dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
-      this.userService.patchUser(this.user.id, res).subscribe((res) => {
-        console.log(res);
-      });
+    dialogRef.afterClosed().subscribe((data: userInfoData) => {
+      if (data) {
+        this.userService.patchUser(this.user.id, data).subscribe((res) => {
+          const url = this.router.url;
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([`/${url}`]);
+            });
+        });
+      }
     });
   }
 
   public openIdDialog() {
     let dialogRef = this.matDialog.open(UserIdDialogComponent, {
-      data: { username: this.user?.username, email: this.user?.email },
+      data: { username: this.user.username},
     });
 
     dialogRef.afterClosed().subscribe((res) => {
-      this.userService.patchUser(this.user.id, res);
+      if (res)
+        this.userService.patchUser(this.user.id, res).subscribe(() => {
+          const url = this.router.url;
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate([`/${url}`]);
+            });
+        });
     });
   }
   public openPasswordDialog() {
