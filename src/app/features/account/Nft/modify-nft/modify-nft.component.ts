@@ -15,7 +15,6 @@ export class ModifyNftComponent {
     private dialogRef: MatDialogRef<ModifyNftComponent>,
     @Inject(MAT_DIALOG_DATA) public data: nftModifyData
   ) {
-    console.log('data ', data);
   }
 
   onNoClick(): void {

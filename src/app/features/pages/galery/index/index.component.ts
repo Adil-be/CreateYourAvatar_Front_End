@@ -16,6 +16,8 @@ export class IndexComponent implements OnDestroy {
   eventsSubject: Subject<void> = new Subject<void>();
 
   filter = {
+    modelName:null,
+    description:null,
     inSale: null,
     featured: null,
     priceMin: null,
@@ -40,7 +42,6 @@ export class IndexComponent implements OnDestroy {
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
-    console.log('mobileQuery ', this.mobileQuery.matches);
 
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -52,6 +53,8 @@ export class IndexComponent implements OnDestroy {
 
   public handleSubmit() {
     let optionNft: ParamNft = {};
+    if (this.filter.modelName) optionNft['nftModel.name']= this.filter.modelName;
+    if (this.filter.description) optionNft['nftModel.description']= this.filter.description;
     if (this.filter.inSale) optionNft.inSale = this.filter.inSale;
     if (this.filter.featured) optionNft.featured = this.filter.featured;
     if (this.filter.priceMin)

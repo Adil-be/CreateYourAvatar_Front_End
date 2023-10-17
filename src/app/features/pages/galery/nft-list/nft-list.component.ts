@@ -6,7 +6,10 @@ import { ParamPagination } from 'src/app/core/interface/param-pagination';
 import { ParamNft } from 'src/app/core/interface/param-nft';
 import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
 
-import { NftService } from 'src/app/core/services/nft.service';
+
+import { UserService } from 'src/app/core/services/user.service';
+import { NftModelService } from 'src/app/core/services/nft-model.service';
+import { FullNftService } from 'src/app/core/services/full-nft.service';
 
 @Component({
   selector: 'app-nft-list',
@@ -30,7 +33,11 @@ export class NftListComponent implements OnInit, OnChanges {
     return this.currentIndex + 1;
   }
 
-  public constructor(private nftService: NftService) {}
+  public constructor(
+    private nftModelService: NftModelService,
+    private nftService: FullNftService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.getGaleryNft();
@@ -46,14 +53,40 @@ export class NftListComponent implements OnInit, OnChanges {
     this.getGaleryNft();
   }
 
+  // getGaleryNft() {
+  //   this.nftService
+  //     .getNftsWithModel(this.getOption())
+  //     .subscribe((data: NftData) => {
+  //       console.log('data ', data);
+  //       this.max = data['hydra:totalItems'];
+  //       this.nfts = this.nftService.extractNfts(data);
+  //     });
+  // }
+
   getGaleryNft() {
-    this.nftService
-      .getNftsWithModel(this.getOption())
-      .subscribe((data: NftData) => {
-        console.log('data ', data);
-        this.max = data['hydra:totalItems'];
-        this.nfts = this.nftService.extractNfts(data);
-      });
+    this.nftService.getFullNft(this.getOption()).subscribe((data: NftData) => {
+      console.log('data ', data);
+      this.max = data['hydra:totalItems'];
+      this.nfts = this.nftService.extractNfts(data);
+
+    //   const observables = nfts.map((nft: Nft) => {
+    //     let nftModel = nft.nftModel;
+    //     let user = nft.user;
+    //     return forkJoin([
+    //       this.userService.getUser(user as string),
+    //       this.nftModelService.getNftModelById(nftModel as string),
+    //     ]);
+    //   });
+    //   forkJoin(observables).subscribe((results) => {
+    //     results.forEach((result, index) => {
+    //       const [user, model] = result;
+    //       nfts[index].user = user;
+    //       nfts[index].nftModel = model;
+    //     });
+    //     this.nfts = nfts;
+    //     console.log('nfts ', this.nfts);
+    //   });
+    });
   }
 
   private getOption(): ParamPagination & ParamNft {

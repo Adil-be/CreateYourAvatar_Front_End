@@ -11,6 +11,7 @@ import { InSalePipe } from './pipe/in-sale.pipe';
 import { GlassBgDirective } from './directives/glass-bg.directive';
 import { NftCardComponent } from './components/nft-card/nft-card.component';
 import { NftOwnedComponent } from './components/nft-owned/nft-owned.component';
+import { CollectionCardComponent } from './components/collection-card/collection-card.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NftOwnedComponent } from './components/nft-owned/nft-owned.component';
     InSalePipe,
     GlassBgDirective,
     NftOwnedComponent,
+    CollectionCardComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { NftOwnedComponent } from './components/nft-owned/nft-owned.component';
     RegistrationFormComponent,
     TruncatePipe,
     NftOwnedComponent,
-    InSalePipe
+    InSalePipe,
+    CollectionCardComponent,
   ],
 })
 export class SharedModule {}

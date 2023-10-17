@@ -5,6 +5,7 @@ import { ItemComponent } from './features/pages/item/item.component';
 import { RegistrationComponent } from './features/pages/registration/registration.component';
 import { LoginComponent } from './features/pages/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { IndexComponent } from './features/pages/nft-collection/index/index.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/account/account.module').then((m) => m.AccountModule),
     canActivate: [authGuard],
+  },
+  {
+    path: 'nftCollection',
+    component: IndexComponent
   },
 ];
 

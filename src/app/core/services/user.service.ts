@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,20 +11,24 @@ import { AuthService } from '../auth/auth.service';
 export class UserService {
   userApiUrl: string;
   route = '/api/users';
-  constructor(
-    api: ApiService,
-    private http: HttpClient,
-    private AuthService: AuthService
-  ) {
-    this.userApiUrl = `${api.BaseUrl}${this.route}`;
+  private apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient, private AuthService: AuthService) {
+    this.userApiUrl = `${this.apiUrl}${this.route}`;
   }
 
   public getAllUsers(): Observable<any> {
     return this.http.get<any>(this.userApiUrl);
   }
 
-  public getUserById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.userApiUrl}/${id}`);
+  public getUser(id: number): Observable<any>;
+  public getUser(route: string): Observable<any>;
+  public getUser(id: number | string): Observable<any> {
+    if (typeof id === 'number') {
+      return this.http.get<any>(`${this.userApiUrl}/${id}`);
+    } else {
+      return this.http.get<any>(`${this.apiUrl}${id}`);
+    }
   }
 
   public patchUser(id: number, partialUser: any): Observable<any> {

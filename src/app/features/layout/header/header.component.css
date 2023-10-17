@@ -1,13 +1,9 @@
 header {
-  margin-bottom: 200px;
   width: 100%;
   position: fixed;
   background-color: #F0E9F1;
   z-index: 5;
 }
-
-
-
 
 header nav.navDesktop,
 header nav.navDesktop ul {

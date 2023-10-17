@@ -8,6 +8,7 @@ import { Observable, Observer, pipe } from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../services/local-storage.service';
 import { UserLogin } from '../interface/UserLogin';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +18,14 @@ export class AuthService {
   urlApiUser: string;
 
   routeLogin: string = '/api/login';
-  routeUser: string = '/api/users';
+  routeUser: string = '/api/user_auth';
   constructor(
     private http: HttpClient,
-    api: ApiService,
     private router: Router,
     private localStorage: LocalStorageService
   ) {
-    this.urlApiLogin = `${api.BaseUrl}${this.routeLogin}`;
-    this.urlApiUser = `${api.BaseUrl}${this.routeUser}`;
+    this.urlApiLogin = `${environment.apiUrl}${this.routeLogin}`;
+    this.urlApiUser = `${environment.apiUrl}${this.routeUser}`;
   }
 
   login(user: UserLogin) {
@@ -40,8 +40,7 @@ export class AuthService {
 
       const id = DecodedToken.id;
 
-      this.getUserById(id).subscribe((user) => {
-        console.log(user);
+      this.getAuthUser(id).subscribe((user) => {
         this.localStorage.setUser(user);
 
         this.router.navigate(['/account']);
@@ -98,29 +97,12 @@ export class AuthService {
     if (credential) {
       return this.http.get<User>(`${this.urlApiUser}/${credential.id}`);
     } else {
-      console.log('test');
       return undefined;
     }
   }
 
-  getAuthUser(): Observable<any> {
-    return new Observable((observer: Observer<User | null>) => {
-      const userjSON = localStorage.getItem('user');
-
-      observer.next(this.createUserFromJson(userjSON));
-
-      const handler = (e: StorageEvent) => {
-        console.log('ok');
-        if (e.key === 'user') {
-          observer.next(this.createUserFromJson(e.newValue));
-        }
-      };
-
-      window.addEventListener('storage', handler);
-      return () => {
-        window.removeEventListener('storage', handler);
-      };
-    });
+  getAuthUser(id:number): Observable<any> {
+    return this.http.get<User>(`${this.urlApiUser}/${id}`)
   }
 
   createUserFromJson(userJson: string | null): User | null {

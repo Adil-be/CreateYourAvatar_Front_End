@@ -20,11 +20,7 @@
       <h3>{{ nft.nftModel.name }} #{{ nft.id }}</h3>
       <p>{{ nft.nftModel.description }}</p>
       <div class="d-flex align-items-center gap-3">
-        <img
-          src="../../../assets/images/profil-picture.png"
-          id="profilPicture"
-          alt=""
-        />
+        <img [src]="nft.user.userImage.path" id="profilPicture" alt="" />
         <p>
           Owner <span>{{ nft.user.username }}</span>
         </p>
@@ -36,6 +32,9 @@
           src="../../../assets/images/eth-diamond-black.svg"
           alt=""
         />
+      </p>
+      <p  class="blue text price">
+        <span>{{ nft.insale|inSale }}</span>
       </p>
       <div class="d-flex gap-3 justify-content-between">
         <a href="" class="btn btn-main">Connect your wallet</a

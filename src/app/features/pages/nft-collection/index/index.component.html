@@ -1,0 +1,43 @@
+<section class="container">
+  <div class="carroussel">
+    <app-collection-card
+      *ngFor="let dataCollection of dataCollections"
+      [nftColection]="dataCollection.nftCollection"
+      [active]="dataCollection.active"
+      (click)="handleClick(dataCollection.nftCollection)"
+    ></app-collection-card>
+  </div>
+</section>
+<section class="container">
+  <div
+    *ngFor="let dataCollection of dataCollections; index as i"
+    class="row align-items-center gap-5 gap-lg-0 my-5"
+  >
+    <ng-container *ngIf="i % 2 == 0; else oddTemplate">
+      <!-- image Collection -->
+      <img
+        [src]="dataCollection.nftCollection.path"
+        class="col-10 offset-1 offset-lg-0 col-lg-4"
+      />
+      <!-- div list step - description NFT -->
+      <article class="col-12 col-lg-7 offset-lg-1">
+        <h3>{{ dataCollection.nftCollection.name }}</h3>
+        <p>{{ dataCollection.nftCollection.description }}</p>
+        <a href="" class="btn btn-main">Voir la collection</a>
+      </article>
+    </ng-container>
+    <ng-template #oddTemplate>
+      <!-- div list step - description NFT -->
+      <article class="col-12 col-lg-7">
+        <h3>{{ dataCollection.nftCollection.name }}</h3>
+        <p>{{ dataCollection.nftCollection.description }}</p>
+        <a href="" class="btn btn-main">Voir la collection</a>
+      </article>
+      <!-- image Collection -->
+      <img
+        [src]="dataCollection.nftCollection.path"
+        class="col-10 offset-1 offset-lg-0 col-lg-4 offset-lg-1"
+      />
+    </ng-template>
+  </div>
+</section>

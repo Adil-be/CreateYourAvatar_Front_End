@@ -1,5 +1,4 @@
-<mat-sidenav-container
->
+<mat-sidenav-container>
   <mat-sidenav
     id="SideBarAccount"
     #sidenav
@@ -13,25 +12,21 @@
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Model name</mat-label>
-          <input matInput placeholder="" />
+          <input matInput [(ngModel)]="filter.modelName" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Model description</mat-label>
-          <input matInput placeholder="" />
+          <input matInput [(ngModel)]="filter.description" />
         </mat-form-field>
       </div>
     </div>
 
     <h4>Option</h4>
     <div class="d-flex flex-md-column">
-      <mat-checkbox [(ngModel)]="filter.inSale" 
-        >In sale</mat-checkbox
-      >
-      <mat-checkbox [(ngModel)]="filter.featured"
-        >featured</mat-checkbox
-      >
+      <mat-checkbox [(ngModel)]="filter.inSale">In sale</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filter.featured">featured</mat-checkbox>
     </div>
     <h4>Price</h4>
     <div>
@@ -66,7 +61,7 @@
       </div>
     </div>
     <div class="d-flex flex-column">
-      <mat-checkbox  [(ngModel)]="filter.nftModel.check"
+      <mat-checkbox [(ngModel)]="filter.nftModel.check"
         >Creation Date</mat-checkbox
       >
       <div>

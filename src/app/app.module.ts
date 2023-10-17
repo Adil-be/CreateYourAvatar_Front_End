@@ -16,6 +16,8 @@ import { AccountModule } from './features/account/account.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './core/interceptors/TokenInterceptor';
 import { HomeModule } from './features/pages/home/home.module';
+import { NftCollectionModule } from './features/pages/nft-collection/nft-collection.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +34,7 @@ import { HomeModule } from './features/pages/home/home.module';
     ItemModule,
     AccountModule,
     BrowserAnimationsModule,
+    NftCollectionModule,
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 export type order = 'desc' | 'asc' | 'DESC' | 'ASC';
 
 export type ParamNft = {
+
   'order[sellingPrice]'?: order;
   'order[purchaseDate]'?: order;
   inSale?: boolean;
@@ -10,4 +11,5 @@ export type ParamNft = {
   'sellingPrice[gt]'?: number;
   'sellingPrice[lt]'?: number;
   'nftModel.name'?: string;
+  'nftModel.description'?: string;
 };

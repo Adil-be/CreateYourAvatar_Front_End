@@ -11,4 +11,5 @@ export interface User {
   birthday: Date;
   address: string;
   nfts?: Nft[];
+  userImage?:any
 }

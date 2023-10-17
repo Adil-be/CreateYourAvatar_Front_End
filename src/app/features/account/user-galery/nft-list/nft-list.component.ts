@@ -7,6 +7,9 @@ import { ParamNft } from 'src/app/core/interface/param-nft';
 import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
 
 import { NftService } from 'src/app/core/services/nft.service';
+import { forkJoin, of, switchMap } from 'rxjs';
+import { NftModelService } from 'src/app/core/services/nft-model.service';
+import { FullNftService } from 'src/app/core/services/full-nft.service';
 
 @Component({
   selector: 'app-nft-list',
@@ -30,7 +33,7 @@ export class NftListComponent implements OnInit, OnChanges {
     return this.currentIndex + 1;
   }
 
-  public constructor(private nftService: NftService) {}
+  public constructor(private nftService: FullNftService) {}
 
   ngOnInit(): void {
     this.getGaleryNft();
@@ -42,11 +45,10 @@ export class NftListComponent implements OnInit, OnChanges {
 
   getGaleryNft() {
     this.nftService
-      .getNftsWithModel(this.getOption())
-      .subscribe((data: NftData) => {
-        console.log('data ', data);
-        this.max = data['hydra:totalItems'];
-        this.nfts = this.nftService.extractNfts(data);
+      .getFullNft(this.getOption())
+      .subscribe((nftData: NftData) => {
+        this.max = nftData['hydra:totalItems'];
+        this.nfts = this.nftService.extractNfts(nftData);
       });
   }
   private getOption(): ParamPagination & ParamNft {

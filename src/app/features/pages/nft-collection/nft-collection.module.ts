@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemComponent } from './item.component';
+import { IndexComponent } from './index/index.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [ItemComponent],
+  declarations: [IndexComponent],
   imports: [CommonModule, SharedModule],
-  bootstrap: [ItemComponent],
+  bootstrap: [IndexComponent],
 })
-export class ItemModule {}
+export class NftCollectionModule {}
