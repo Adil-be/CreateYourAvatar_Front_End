@@ -1,9 +1,9 @@
-<div class="content" *ngIf="nft">
+<div class="content">
   <div class="nftImgContainer">
     <a [routerLink]="['/item/', nft.id]">
       <img
-        *ngIf="firstImage"
-        [src]="firstImage.path"
+        *ngIf="image"
+        [src]="image.path"
         alt="image equilibrium"
         class="nftImg"
       />
@@ -19,10 +19,12 @@
   <main>
     <h3>
       <a [routerLink]="['/item/', nft.id]" class="d-flex flex-column"
-        ><span>{{ nft.nftModel.name }}</span> <span>#{{ nft.id }}</span></a
+        ><span>{{ nftModel.name }}</span> <span>#{{ nft.id }}</span></a
       >
     </h3>
-    <p>{{ nft.nftModel.description | truncate : 90 }}</p>
+    <p>
+      {{ nftModel.description! | truncate : 90 }}
+    </p>
     <div
       class="data d-flex flex-column flex-lg-row flex-wrap py-3 justify-content-between"
     >
@@ -31,7 +33,9 @@
     </div>
   </main>
   <footer>
-    <img src="../../../../assets/images/image-avatar.png" alt="image profil" />
-    <p>Owner <a href="" class="creator">Jules Wyrern </a></p>
+    <img [src]="user.userImage.path" alt="image profil" />
+    <p>
+      Owner <a href="" class="creator">{{ user.username }} </a>
+    </p>
   </footer>
 </div>

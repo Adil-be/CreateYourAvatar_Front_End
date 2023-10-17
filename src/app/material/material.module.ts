@@ -1,30 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { SharedModule } from 'src/app/shared/shared.module';
-import { GaleryRoutingModule } from './galery-routing.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { IndexComponent } from './index/index.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
-import { NftListComponent } from './nft-list/nft-list.component';
-import { MaterialModule } from 'src/app/material/material.module';
 
 @NgModule({
-  declarations: [NftListComponent, IndexComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    SharedModule,
-    GaleryRoutingModule,
-    MaterialModule,
-    FormsModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSliderModule,
+    MatRadioModule,
+    MatButtonModule,
   ],
-  bootstrap: [IndexComponent],
+  exports: [
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSliderModule,
+    MatRadioModule,
+    MatButtonModule,
+  ],
 })
-export class GaleryModule {}
+export class MaterialModule {}

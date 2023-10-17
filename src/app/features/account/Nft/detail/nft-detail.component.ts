@@ -38,8 +38,9 @@ export class NftDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (data) {
-        console.log('data ', data);
-        this.nftService.patchNft(this.nft.id, data).subscribe(() => {
+        console.log(data);
+        this.nftService.patchNft(this.nft.id, data).subscribe((res) => {
+          console.log(res);
           const url = this.router.url;
           this.router
             .navigateByUrl('/', { skipLocationChange: true })

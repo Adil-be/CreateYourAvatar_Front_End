@@ -18,7 +18,7 @@
   <h2>My profile</h2>
   <div class="row glassBg p-5">
     <div class="col-10 offset-1 col-md-4 offset-md-0 p-5">
-      <img src="../../../../assets/images/profil-picture.png" alt="" />
+      <img [src]="user.userImage.path" alt="image profil" />
     </div>
     <div class="col-10 offset-1 col-md-4 offset-md-0 p-5" id="profilCard">
       <h2>{{ user.username! }}</h2>

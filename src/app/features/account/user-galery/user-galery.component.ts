@@ -42,7 +42,6 @@ export class UserGaleryComponent implements OnInit, OnDestroy {
     private auth: AuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
-    console.log('mobileQuery ', this.mobileQuery.matches);
 
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

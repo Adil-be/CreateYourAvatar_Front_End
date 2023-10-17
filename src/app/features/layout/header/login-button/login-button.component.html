@@ -1,6 +1,6 @@
 <div *ngIf="user; else loginButton" class="d-flex align-items-center gap-3">
   <a [routerLink]="['account']">
-    <img src="../../../../../assets/images/profil-picture.png" alt="" />
+    <img [src]="user.userImage.path" alt="" />
     <span>{{ user.username! | truncate : 15 }}</span>
   </a>
   <i class="bi bi-box-arrow-right" (click)="logout()"></i>
