@@ -8,16 +8,17 @@ import {
 
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private auth: AuthService) {}
+  constructor(private localStorage: LocalStorageService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.auth.getToken();
+    const token = this.localStorage.getToken();
     if (token) {
       const secureReq = req.clone({
         setHeaders: {

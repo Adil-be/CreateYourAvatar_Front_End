@@ -9,6 +9,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -24,6 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSliderModule,
     MatRadioModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatDialogModule
   ],
   exports: [
     MatProgressSpinnerModule,
@@ -36,6 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSliderModule,
     MatRadioModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatDialogModule
   ],
 })
 export class MaterialModule {}

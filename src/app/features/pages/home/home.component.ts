@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
+import { ModelData } from 'src/app/core/interface/model-data';
 import { Nft } from 'src/app/core/interface/nft';
 import { NftData } from 'src/app/core/interface/nft-data';
+import { NftModel } from 'src/app/core/interface/nft-model';
 import { order } from 'src/app/core/interface/param-nft';
+import { NftCollectionService } from 'src/app/core/services/nft-collection.service';
 import { NftModelService } from 'src/app/core/services/nft-model.service';
 import { NftService } from 'src/app/core/services/nft.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -16,9 +19,10 @@ export class HomeComponent implements OnInit {
   public constructor(
     private nftService: NftService,
     private userService: UserService,
-    private nftModelService: NftModelService
+    private nftModelService: NftModelService,
+    private nftCollectionService: NftCollectionService
   ) {}
-  public featuredNfts: Nft[] = [];
+  public featuredNfts: NftModel[] = [];
   public inProgress: boolean = true;
 
   ngOnInit() {
@@ -30,24 +34,21 @@ export class HomeComponent implements OnInit {
       itemsPerPage: 4,
     };
 
-    this.nftService.getAllNft(option).subscribe((data: NftData) => {
-      let nfts: Nft[] = this.nftService.extractNfts(data);
+    this.nftModelService.getModels(option).subscribe((data: ModelData) => {
+      let nftModels: NftModel[] = this.nftModelService.extractNfts(data);
 
-      const observables = nfts.map((nft: Nft) => {
-        let nftModel = nft.nftModel;
-        let user = nft.user;
+      const observables = nftModels.map((nftModel: NftModel) => {
+        let collection = nftModel.nftCollection;
         return forkJoin([
-          this.userService.getUser(user as string),
-          this.nftModelService.getNftModelById(nftModel as string),
+          this.nftCollectionService.getNftCollection(collection as string),
         ]);
       });
       forkJoin(observables).subscribe((results) => {
         results.forEach((result, index) => {
-          const [user, model] = result;
-          nfts[index].user = user;
-          nfts[index].nftModel = model;
+          const [collection] = result;
+          nftModels[index].nftCollection = collection;
         });
-        this.featuredNfts = nfts;
+        this.featuredNfts = nftModels;
         this.inProgress = false;
         console.log('nfts ', this.featuredNfts);
       });

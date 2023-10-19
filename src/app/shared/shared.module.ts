@@ -12,6 +12,10 @@ import { GlassBgDirective } from './directives/glass-bg.directive';
 import { NftCardComponent } from './components/nft-card/nft-card.component';
 import { NftOwnedComponent } from './components/nft-owned/nft-owned.component';
 import { CollectionCardComponent } from './components/collection-card/collection-card.component';
+import { ModelCardComponent } from './components/model-card/model-card.component';
+import { GraphComponent } from './components/graph/graph.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { CollectionCardComponent } from './components/collection-card/collection
     GlassBgDirective,
     NftOwnedComponent,
     CollectionCardComponent,
+    ModelCardComponent,
+    GraphComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +36,7 @@ import { CollectionCardComponent } from './components/collection-card/collection
     ReactiveFormsModule,
     RouterModule,
     ReactiveFormsModule,
+    NgxChartsModule, 
   ],
   exports: [
     NftCardComponent,
@@ -39,6 +46,8 @@ import { CollectionCardComponent } from './components/collection-card/collection
     NftOwnedComponent,
     InSalePipe,
     CollectionCardComponent,
+    ModelCardComponent,
+    GraphComponent
   ],
 })
 export class SharedModule {}

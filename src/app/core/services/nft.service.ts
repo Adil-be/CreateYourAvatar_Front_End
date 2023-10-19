@@ -10,6 +10,7 @@ import { AuthService } from '../auth/auth.service';
 
 import { environment } from '../../../environments/environment';
 import { NftModelService } from './nft-model.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class NftService {
   constructor(
     private http: HttpClient,
     private auth: AuthService,
+    private localStorage: LocalStorageService,
     private nftModelService: NftModelService
   ) {
     this.nftApiUrl = `${this.apiUrl}${this.routeNft}`;
@@ -110,7 +112,7 @@ export class NftService {
   }
 
   public patchNft(id: number, data: any) {
-    const token = this.auth.getToken();
+    const token = this.localStorage.getToken();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,

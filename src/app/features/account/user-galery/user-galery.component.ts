@@ -13,7 +13,9 @@ export class UserGaleryComponent implements OnInit, OnDestroy {
   private user!: User;
   test = true;
   filter = {
-    inSale: null,
+    modelName:null,
+    description:null,
+    inSale:null,
     featured: null,
     priceMin: null,
     priceMax: null,
@@ -67,6 +69,8 @@ export class UserGaleryComponent implements OnInit, OnDestroy {
 
   public createOption(): ParamNft {
     let optionNft: ParamNft = {};
+    if (this.filter.modelName) optionNft['nftModel.name']= this.filter.modelName;
+    if (this.filter.description) optionNft['nftModel.description']= this.filter.description;
     if (this.filter.inSale) optionNft.inSale = this.filter.inSale;
     if (this.filter.featured) optionNft.featured = this.filter.featured;
     if (this.filter.priceMin)

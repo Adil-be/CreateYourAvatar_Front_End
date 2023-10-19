@@ -19,7 +19,7 @@
   <main>
     <h3>
       <a [routerLink]="['/item/', nft.id]" class="d-flex flex-column"
-        ><span>{{ nftModel.name }}</span> <span>#{{ nft.id }}</span></a
+        ><span>{{ nftModel.name }}</span></a
       >
     </h3>
     <p>
@@ -28,14 +28,14 @@
     <div
       class="data d-flex flex-column flex-lg-row flex-wrap py-3 justify-content-between"
     >
-      <span id="icon-eth" class="icon"> {{ nft.sellingPrice }} ETH</span>
-      <span id="icon-time" class="icon">{{ nft.inSale | inSale }}</span>
+      <span id="icon-eth" class="icon"> {{ nftModel.initialPrice }} ETH</span>
+      <span id="icon-time" class="icon">{{ nftModel.quantity }}</span>
     </div>
   </main>
   <footer>
-    <img [src]="user.userImage.path" alt="image profil" />
+    <img [src]="nftCollection.path" alt="image profil" />
     <p>
-      Owner <a href="" class="creator">{{ user.username }} </a>
+      Collection <a href="" class="creator">{{ nftCollection.name }} </a>
     </p>
   </footer>
 </div>

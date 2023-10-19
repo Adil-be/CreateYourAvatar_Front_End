@@ -31,8 +31,11 @@
   </main>
   <footer>
     <div class="text-center mt-4">
-      <button [routerLink]="['/account/nft/', nft.id]" class="btn btn-main">
+      <button [routerLink]="['/account/nft/', nft.id]" class="btn btn-main mx-3">
         Details
+      </button>
+      <button [routerLink]="['/item/', nft.nftModel.id]" class="btn btn-main mx-3">
+        voir Model
       </button>
     </div>
   </footer>

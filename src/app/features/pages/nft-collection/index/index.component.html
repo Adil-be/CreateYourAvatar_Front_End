@@ -11,33 +11,22 @@
 <section class="container">
   <div
     *ngFor="let dataCollection of dataCollections; index as i"
-    class="row align-items-center gap-5 gap-lg-0 my-5"
   >
-    <ng-container *ngIf="i % 2 == 0; else oddTemplate">
+    <div
+      class="d-flex flex-column text-center text-md-start justify-content-between flex-md-row align-items-center my-5"
+      [ngClass]="{ 'flex-md-row-reverse': i % 2 == 1 }"
+    >
       <!-- image Collection -->
       <img
         [src]="dataCollection.nftCollection.path"
-        class="col-10 offset-1 offset-lg-0 col-lg-4"
+        class="col-10 offset-1 offset-md-0 col-md-4 my-4"
       />
       <!-- div list step - description NFT -->
-      <article class="col-12 col-lg-7 offset-lg-1">
+      <article class="col-12  col-md-7">
         <h3>{{ dataCollection.nftCollection.name }}</h3>
         <p>{{ dataCollection.nftCollection.description }}</p>
         <a href="" class="btn btn-main">Voir la collection</a>
       </article>
-    </ng-container>
-    <ng-template #oddTemplate>
-      <!-- div list step - description NFT -->
-      <article class="col-12 col-lg-7">
-        <h3>{{ dataCollection.nftCollection.name }}</h3>
-        <p>{{ dataCollection.nftCollection.description }}</p>
-        <a href="" class="btn btn-main">Voir la collection</a>
-      </article>
-      <!-- image Collection -->
-      <img
-        [src]="dataCollection.nftCollection.path"
-        class="col-10 offset-1 offset-lg-0 col-lg-4 offset-lg-1"
-      />
-    </ng-template>
+    </div>
   </div>
 </section>
