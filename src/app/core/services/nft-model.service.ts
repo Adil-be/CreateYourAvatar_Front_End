@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { NftModel } from '../interface/nft-model';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ParamPagination } from '../interface/param-pagination';
+import { ParamModel } from '../interface/param-model';
+import { ParamNft } from '../interface/param-nft';
+import { ModelData } from '../interface/model-data';
 
 @Injectable({
   providedIn: 'root',
@@ -20,20 +24,24 @@ export class NftModelService {
   public getNftModelById(route: string): Observable<NftModel>;
   public getNftModelById(id: number): Observable<NftModel>;
   public getNftModelById(id: number | string): Observable<NftModel> {
-    if (typeof id === 'number') {
+    if (typeof id == 'number') {
+      
       let url: string = `${this.nftModelApi}${id}`;
       return this.http.get<any>(url);
     } else {
+      console.log('test');
       let url: string = `${this.apiUrl}${id}`;
       return this.http.get<any>(url);
     }
   }
-  public getAllNftModels(): Observable<NftModel[]> {
-    return this.http.get<any>(this.nftModelApi).pipe(
-      map((json: any) => {
-        const members: any = json['hydra:member'];
-        return members;
-      })
-    );
+  public getModels(
+    param: ParamModel & ParamPagination = {}
+  ): Observable<ModelData> {
+    let queryParams = new HttpParams({ fromObject: param });
+    return this.http.get<any>(this.nftModelApi, { params: queryParams });
+  }
+
+  public extractNfts(json: any): NftModel[] {
+    return json['hydra:member'];
   }
 }

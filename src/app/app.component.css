@@ -1,3 +1,69 @@
-.container-router{
-    padding-top: 100px;
+header {
+  width: 100%;
+  position: fixed;
+  background-color: #f0e9f1;
+  z-index: 5;
+}
+
+nav.navDesktop,
+nav.navDesktop ul {
+  display: flex;
+  align-items: center;
+}
+
+nav .menu-link li a {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+i.bi {
+  font-size: 40px;
+}
+
+nav {
+  justify-content: space-between;
+}
+nav ul {
+  gap: 50px;
+}
+
+.container-router {
+  padding-top: 100px;
+}
+
+@media screen and (max-width: 767px) {
+  nav.navDesktop ul {
+    display: none;
+  }
+}
+
+/* Sidenav */
+i.bi {
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.navMobile {
+  background-color: #fff;
+  width: 300px;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+}
+.navMobile ul {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.navMobile ul li {
+  margin-left: 10px;
+  border-bottom: 1px solid black;
+}
+.navMobile .menu-link {
+  margin-bottom: 30px;
+}
+
+.navMobile i.bi {
+  font-size: 2.5rem;
+  margin-right: 10px;
 }

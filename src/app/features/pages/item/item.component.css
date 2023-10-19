@@ -27,3 +27,8 @@
 .price i {
   vertical-align: middle;
 }
+
+.graph {
+  width: 1000px;
+  height: 1000px;
+}

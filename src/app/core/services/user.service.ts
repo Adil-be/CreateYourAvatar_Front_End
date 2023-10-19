@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,11 @@ export class UserService {
   route = '/api/users';
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private AuthService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private AuthService: AuthService,
+    private localStorage: LocalStorageService
+  ) {
     this.userApiUrl = `${this.apiUrl}${this.route}`;
   }
 
@@ -32,7 +37,7 @@ export class UserService {
   }
 
   public patchUser(id: number, partialUser: any): Observable<any> {
-    const token = this.AuthService.getToken();
+    const token = this.localStorage.getToken();
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,

@@ -49,6 +49,10 @@ export class LocalStorageService {
     localStorage.setItem('token', token);
     this._token$.next(token);
   }
+  getToken() {
+    const Token = localStorage.getItem('token');
+    return Token ? Token : null;
+  }
 
   clearToken() {
     localStorage.removeItem('token');

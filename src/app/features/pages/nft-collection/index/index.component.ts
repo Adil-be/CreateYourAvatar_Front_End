@@ -19,7 +19,7 @@ export class IndexComponent implements OnInit {
   public constructor(private NCService: NftCollectionService) {}
 
   ngOnInit(): void {
-    this.NCService.getNftCollection().subscribe((data: CollectionData) => {
+    this.NCService.getNftCollections().subscribe((data: CollectionData) => {
       this.dataCollections = data['hydra:member'].map((value, index) => {
         if (index == 0) {
           return { nftCollection: value, active: true };

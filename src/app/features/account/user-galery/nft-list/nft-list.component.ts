@@ -33,7 +33,7 @@ export class NftListComponent implements OnInit, OnChanges {
     return this.currentIndex + 1;
   }
 
-  public constructor(private nftService: FullNftService) {}
+  public constructor(private nftService: FullNftService,private ModelService:NftModelService) {}
 
   ngOnInit(): void {
     this.getGaleryNft();

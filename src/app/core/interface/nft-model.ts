@@ -6,10 +6,11 @@ export interface NftModel {
   id: number;
   name: string;
   initialPrice?: number;
+  quantity?: number;
   createdAt?: Date;
   description?: string;
   nft?: Nft[];
-  nftCollection?: NftCollection;
+  nftCollection?: NftCollection | string;
   categories?: any[];
   nftImages?: NftImage[];
 }

@@ -24,12 +24,15 @@
 <section id="feature" class="container">
   <h2 class="text-center">Featured nft</h2>
   <div class="row glassBg p-5">
-    <div *ngIf="inProgress; else Featured" class="d-flex justify-content-center">
+    <div
+      *ngIf="inProgress; else Featured"
+      class="d-flex justify-content-center"
+    >
       <mat-spinner></mat-spinner>
     </div>
     <ng-template #Featured
-      ><div *ngFor="let nft of featuredNfts" class="col-6 col-lg-3">
-        <app-nft-card [nft]="nft"></app-nft-card></div
+      ><div *ngFor="let nftModel of featuredNfts" class="col-6 col-lg-3">
+        <app-model-card [nftModel]="nftModel"></app-model-card ></div
     ></ng-template>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { User } from '../interface/user';
@@ -32,7 +32,11 @@ export class AuthService {
     const jsonUser = { username: user.email, password: user.password };
 
     this.http.post<any>(this.urlApiLogin, jsonUser).subscribe((res) => {
+      console.log(res);
+
       this.localStorage.setToken(res.token);
+      const token = this.localStorage.getToken();
+      console.log(`Bearer ${token}`);
 
       const DecodedToken: UserCredential = jwt_decode(res.token);
 
@@ -85,11 +89,6 @@ export class AuthService {
 
     return JSONCredentials ? JSON.parse(JSONCredentials) : null;
   }
-  getToken(): string | null {
-    const Token = localStorage.getItem('token');
-
-    return Token ? Token : null;
-  }
 
   getCurrentUser(): Observable<User> | undefined {
     const credential: UserCredential | null = this.getCredentiel();
@@ -101,8 +100,16 @@ export class AuthService {
     }
   }
 
-  getAuthUser(id:number): Observable<any> {
-    return this.http.get<User>(`${this.urlApiUser}/${id}`)
+  getAuthUser(id: number): Observable<any> {
+    const token = this.localStorage.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(`${this.urlApiUser}/${id}`, {
+      headers: headers,
+    });
   }
 
   createUserFromJson(userJson: string | null): User | null {

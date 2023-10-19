@@ -19,6 +19,7 @@
     >
       <h3>{{ nft.nftModel.name }} #{{ nft.id }}</h3>
       <p>{{ nft.nftModel.description }}</p>
+      <p>token : {{ nft.token }}</p>
 
       <div>
         <p id="price" class="blue text price">
@@ -40,6 +41,7 @@
       </div>
       <div class="d-flex gap-3 justify-content-between">
         <button (click)="openNftDialog()" class="btn btn-main">Modify</button>
+        <button [routerLink]="['/item/', nft.nftModel.id]" class="btn btn-main">Voir Model</button>
       </div>
     </article>
   </div>
