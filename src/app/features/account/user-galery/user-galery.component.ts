@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ParamNft, order } from 'src/app/core/interface/param-nft';
-import { User } from 'src/app/core/interface/user';
+import { ParamNft, order } from 'src/app/core/interface/param/param-nft';
+import { User } from 'src/app/core/interface/model/user';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
@@ -13,9 +13,9 @@ export class UserGaleryComponent implements OnInit, OnDestroy {
   private user!: User;
   test = true;
   filter = {
-    modelName:null,
-    description:null,
-    inSale:null,
+    modelName: null,
+    description: null,
+    inSale: null,
     featured: null,
     priceMin: null,
     priceMax: null,
@@ -69,8 +69,10 @@ export class UserGaleryComponent implements OnInit, OnDestroy {
 
   public createOption(): ParamNft {
     let optionNft: ParamNft = {};
-    if (this.filter.modelName) optionNft['nftModel.name']= this.filter.modelName;
-    if (this.filter.description) optionNft['nftModel.description']= this.filter.description;
+    if (this.filter.modelName)
+      optionNft['nftModel.name'] = this.filter.modelName;
+    if (this.filter.description)
+      optionNft['nftModel.description'] = this.filter.description;
     if (this.filter.inSale) optionNft.inSale = this.filter.inSale;
     if (this.filter.featured) optionNft.featured = this.filter.featured;
     if (this.filter.priceMin)

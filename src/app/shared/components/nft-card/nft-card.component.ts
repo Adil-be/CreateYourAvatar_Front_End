@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { Nft } from 'src/app/core/interface/nft';
-import { NftCollection } from 'src/app/core/interface/nft-collection';
-import { NftModel } from 'src/app/core/interface/nft-model';
-import { User } from 'src/app/core/interface/user';
+import { Nft } from 'src/app/core/interface/model/nft';
+import { NftCollection } from 'src/app/core/interface/model/nft-collection';
+import { NftModel } from 'src/app/core/interface/model/nft-model';
+import { User } from 'src/app/core/interface/model/user';
 import { NftService } from 'src/app/core/services/nft.service';
 import { UserService } from 'src/app/core/services/user.service';
 

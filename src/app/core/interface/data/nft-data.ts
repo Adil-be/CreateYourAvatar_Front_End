@@ -1,4 +1,4 @@
-import { Nft } from "./nft";
+import { Nft } from '../model/nft';
 
 export interface NftData {
   '@context': string;

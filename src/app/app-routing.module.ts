@@ -3,17 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './features/pages/home/home.component';
 import { ItemComponent } from './features/pages/item/item.component';
 import { RegistrationComponent } from './features/pages/registration/registration.component';
-import { LoginComponent } from './features/pages/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
 import { IndexComponent } from './features/pages/nft-collection/index/index.component';
 
 const routes: Routes = [
+  { path: 'nftCollection', component: IndexComponent },
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'item/:id', component: ItemComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
-
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./features/pages/login/login.module').then((m) => m.LoginModule),
+  },
   {
     path: 'galery',
     loadChildren: () =>
@@ -26,10 +29,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/account/account.module').then((m) => m.AccountModule),
     canActivate: [authGuard],
-  },
-  {
-    path: 'nftCollection',
-    component: IndexComponent
   },
 ];
 

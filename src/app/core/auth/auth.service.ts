@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { User } from '../interface/user';
+import { User } from '../interface/model/user';
 import jwt_decode from 'jwt-decode';
 import { UserCredential } from '../interface/user-credential';
 import { Observable, Observer, pipe } from 'rxjs';
@@ -29,14 +28,12 @@ export class AuthService {
   }
 
   login(user: UserLogin) {
+    
     const jsonUser = { username: user.email, password: user.password };
 
     this.http.post<any>(this.urlApiLogin, jsonUser).subscribe((res) => {
-      console.log(res);
-
+   
       this.localStorage.setToken(res.token);
-      const token = this.localStorage.getToken();
-      console.log(`Bearer ${token}`);
 
       const DecodedToken: UserCredential = jwt_decode(res.token);
 
@@ -100,7 +97,8 @@ export class AuthService {
     }
   }
 
-  getAuthUser(id: number): Observable<any> {
+  getAuthUser(id: number): Observable<User> {
+    
     const token = this.localStorage.getToken();
 
     const headers = new HttpHeaders({
@@ -118,9 +116,5 @@ export class AuthService {
       user = JSON.parse(userJson) as User;
     }
     return user;
-  }
-
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.urlApiUser}/${id}`);
   }
 }

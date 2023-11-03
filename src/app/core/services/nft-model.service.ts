@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { NftModel } from '../interface/nft-model';
+import { NftModel } from '../interface/model/nft-model';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ParamPagination } from '../interface/param-pagination';
-import { ParamModel } from '../interface/param-model';
-import { ParamNft } from '../interface/param-nft';
-import { ModelData } from '../interface/model-data';
+import { ParamPagination } from '../interface/param/param-pagination';
+import { ParamModel } from '../interface/param/param-model';
+import { ModelData } from '../interface/data/model-data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,30 +13,29 @@ import { ModelData } from '../interface/model-data';
 export class NftModelService {
   private routeModel = '/api/nft_models/';
   private nftModelApi: string;
-
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    this.nftModelApi = `${this.apiUrl}${this.routeModel}`;
+    this.nftModelApi = `${environment.apiUrl}${this.routeModel}`;
   }
 
   public getNftModelById(route: string): Observable<NftModel>;
   public getNftModelById(id: number): Observable<NftModel>;
   public getNftModelById(id: number | string): Observable<NftModel> {
+    
     if (typeof id == 'number') {
-      
-      let url: string = `${this.nftModelApi}${id}`;
+      let url: string = `${this.apiUrl}${this.routeModel}${id}`;
       return this.http.get<any>(url);
     } else {
-      console.log('test');
       let url: string = `${this.apiUrl}${id}`;
       return this.http.get<any>(url);
     }
   }
-  public getModels(
-    param: ParamModel & ParamPagination = {}
-  ): Observable<ModelData> {
+  public getModels(param: ParamModel & ParamPagination = {}): Observable<ModelData> {
+    
+    // param  for the api platform Filter
     let queryParams = new HttpParams({ fromObject: param });
+
     return this.http.get<any>(this.nftModelApi, { params: queryParams });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { User } from 'src/app/core/interface/user';
+import { User } from 'src/app/core/interface/model/user';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Component({

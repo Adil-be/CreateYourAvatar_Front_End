@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { NftCollection } from 'src/app/core/interface/nft-collection';
-import { NftModel } from 'src/app/core/interface/nft-model';
+import { NftCollection } from 'src/app/core/interface/model/nft-collection';
+import { NftModel } from 'src/app/core/interface/model/nft-model';
 
 @Component({
   selector: 'app-model-card',

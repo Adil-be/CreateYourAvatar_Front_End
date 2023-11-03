@@ -4,7 +4,7 @@
     <!-- div text banner -->
     <div
       id="textBanner"
-      class="col-12 col-lg-5 d-flex flex-column gap-3 align-items-center align-items-lg-start text-center text-lg-start"
+      class="my-3 col-12 col-lg-5 d-flex flex-column gap-3 align-items-center align-items-lg-start text-center text-lg-start"
     >
       <h1 class="text-uppercase violet fw-bold">Create your own avatar</h1>
       <p>
@@ -15,27 +15,31 @@
     </div>
     <!-- image robot banner -->
     <div id="imageBanner" class="col-12 col-lg-7">
-      <img src="../../../assets/images/armor1.png" alt="" />
-      <img src="../../../assets/images/armor2.png" alt="" />
-      <img src="../../../assets/images/armor3.png" alt="" />
+      <img src="../../../assets/images/imageHeader.png" alt="" />
     </div>
   </div>
 </section>
 <section id="feature" class="container">
   <h2 class="text-center">Featured nft</h2>
-  <div class="row glassBg p-5">
+  <div class="row glassBg p-5 slider flex-nowrap">
     <div
       *ngIf="inProgress; else Featured"
       class="d-flex justify-content-center"
     >
       <mat-spinner></mat-spinner>
     </div>
-    <ng-template #Featured
-      ><div *ngFor="let nftModel of featuredNfts" class="col-6 col-lg-3">
-        <app-model-card [nftModel]="nftModel"></app-model-card ></div
-    ></ng-template>
+    <ng-template #Featured>
+      <app-model-card
+        *ngFor="let nftModel of featuredNfts"
+        class="col-10 col-md-6 col-lg-4 col-xl-3"
+        [nftModel]="nftModel"
+      >
+      </app-model-card>
+    </ng-template>
   </div>
 </section>
+
+<!-- section Description NFT -->
 <section id="NFT" class="container">
   <h2 class="text-center">Create your account and save your NFTs</h2>
   <div class="row align-items-center gap-5 gap-lg-0">
@@ -101,16 +105,24 @@
       </p>
     </div>
     <div class="col-12 col-lg-6 offset-lg-1">
-      <div id="carouselContainer">
-        <a class="slide" href=""
+      <div id="carouselContainer" class="row">
+        <a
+          *ngFor="let nftCollection of nftCollections"
+          class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto"
+          [routerLink]="['/nftCollection/', nftCollection.id]"
+          ><img [src]="nftCollection.path" alt=""
+        /></a>
+
+        <!--  -->
+        <!-- <a class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto" href=""
           ><img src="../../../assets/images/collection1.jpg" alt=""
         /></a>
-        <a class="slide" href=""
+        <a class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto" href=""
           ><img src="../../../assets/images/collection2.jpg" alt=""
         /></a>
-        <a class="slide" href=""
+        <a class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto" href=""
           ><img src="../../../assets/images/minotaur-armor.jpg" alt=""
-        /></a>
+        /></a> -->
       </div>
       <div class="arrowCarousel">
         <span id="prev" onclick="clickPrev()">

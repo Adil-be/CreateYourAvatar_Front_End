@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map, mergeMap, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Nft } from '../interface/nft';
-import { NftModel } from '../interface/nft-model';
-import { ParamPagination } from '../interface/param-pagination';
-import { ParamNft } from '../interface/param-nft';
-import { NftData } from '../interface/nft-data';
+import { Nft } from '../interface/model/nft';
+import { NftModel } from '../interface/model/nft-model';
+import { ParamPagination } from '../interface/param/param-pagination';
+import { ParamNft } from '../interface/param/param-nft';
+import { NftData } from '../interface/data/nft-data';
 import { AuthService } from '../auth/auth.service';
 
 import { environment } from '../../../environments/environment';
 import { NftModelService } from './nft-model.service';
 import { LocalStorageService } from './local-storage.service';
+import { User } from '../interface/model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,6 @@ export class NftService {
 
   private routeNft = '/api/nfts/';
 
-
   constructor(
     private http: HttpClient,
     private auth: AuthService,
@@ -29,7 +29,6 @@ export class NftService {
     private nftModelService: NftModelService
   ) {
     this.nftApiUrl = `${this.apiUrl}${this.routeNft}`;
-   
   }
 
   public getAllNft(
@@ -40,15 +39,15 @@ export class NftService {
     return this.http.get<NftData>(this.nftApiUrl, { params: queryParams });
   }
 
-  public getNfById(id: number): Observable<Nft> {
-    return this.http.get(`${this.nftApiUrl}${id}`).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+  public getNfById(route: string): Observable<Nft>;
+  public getNfById(id: number): Observable<Nft>;
+  public getNfById(idOrRoute: number | string): Observable<Nft> {
+    if (typeof idOrRoute == 'string') {
+      return this.http.get<Nft>(`${this.apiUrl}${idOrRoute}`);
+    } else {
+      return this.http.get<Nft>(`${this.nftApiUrl}${idOrRoute}`);
+    }
   }
-
-  
 
   // public getNftsWithModel(
   //   param: ParamNft & ParamPagination = {}

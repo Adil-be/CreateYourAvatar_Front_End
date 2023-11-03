@@ -1,18 +1,23 @@
 <div>
-  <div class="row row-gap-1">
+  <ng-template #spinner>
+    <div class="row glassBg">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </ng-template>
+  <div class="row row-gap-1" *ngIf="nftModels; else spinner">
     <div
       *ngFor="let nftModel of nftModels"
       id="nft"
-      class="col-10 offset-1 offset-md-0 col-md-6 col-lg-4 col-xl-3"
+      class="col-10 offset-1 col-sm-6 offset-sm-0 col-lg-4 col-xl-3"
     >
-      <app-model-card [nftModel]="nftModel"></app-model-card>
+      <app-model-card [nftModel]="nftModel"> </app-model-card>
     </div>
   </div>
   <mat-paginator
     [length]="max"
     [pageSize]="itemsPerPage"
     [pageIndex]="currentIndex"
-    [pageSizeOptions]="[10, 20, 40, 100]"
+    [pageSizeOptions]="[10, 20, 30, 40]"
     [showFirstLastButtons]="true"
     aria-label="Select page"
     (page)="handlePageEvent($event)"

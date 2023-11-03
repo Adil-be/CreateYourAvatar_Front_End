@@ -1,17 +1,12 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NftData } from 'src/app/core/interface/nft-data';
-import { ParamPagination } from 'src/app/core/interface/param-pagination';
-import { ParamNft } from 'src/app/core/interface/param-nft';
+import { ParamPagination } from 'src/app/core/interface/param/param-pagination';
 import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
-
-import { UserService } from 'src/app/core/services/user.service';
 import { NftModelService } from 'src/app/core/services/nft-model.service';
-import { FullNftService } from 'src/app/core/services/full-nft.service';
-import { ModelData } from 'src/app/core/interface/model-data';
+import { ModelData } from 'src/app/core/interface/data/model-data';
 import { NftCollectionService } from 'src/app/core/services/nft-collection.service';
-import { forkJoin, switchMap } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { ParamModel } from 'src/app/core/interface/param/param-model';
 
 @Component({
   selector: 'app-nft-list',
@@ -20,14 +15,13 @@ import { forkJoin, switchMap } from 'rxjs';
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntlService }],
 })
 export class NftListComponent implements OnInit, OnChanges {
-  public nftModels: any[] = [];
+  public nftModels: any[] | null = null;
 
-  @Input() optionNft!: ParamNft;
+  @Input() optionNft!: ParamModel;
 
+  // Options paginations
   optionPaginanition: ParamPagination = {};
-
   max: number = 0;
-
   currentIndex: number = 0;
   itemsPerPage: number = 20;
 
@@ -37,34 +31,12 @@ export class NftListComponent implements OnInit, OnChanges {
 
   public constructor(
     private nftModelService: NftModelService,
-    private nftService: FullNftService,
-    private userService: UserService,
     private collectionService: NftCollectionService
   ) {}
 
   ngOnInit(): void {
     this.getGaleryNft();
   }
-
-  ngOnChanges(): void {
-    this.getGaleryNft();
-  }
-
-  handlePageEvent(pageEvent: PageEvent) {
-    this.currentIndex = pageEvent.pageIndex;
-    this.itemsPerPage = pageEvent.pageSize;
-    this.getGaleryNft();
-  }
-
-  // getGaleryNft() {
-  //   this.nftService
-  //     .getNftsWithModel(this.getOption())
-  //     .subscribe((data: NftData) => {
-  //       console.log('data ', data);
-  //       this.max = data['hydra:totalItems'];
-  //       this.nfts = this.nftService.extractNfts(data);
-  //     });
-  // }
 
   getGaleryNft() {
     this.nftModelService
@@ -86,33 +58,25 @@ export class NftListComponent implements OnInit, OnChanges {
           this.nftModels = nftModels;
           console.log('nftModels ', this.nftModels);
         });
-
-        //   const observables = nfts.map((nft: Nft) => {
-        //     let nftModel = nft.nftModel;
-        //     let user = nft.user;
-        //     return forkJoin([
-        //       this.userService.getUser(user as string),
-        //       this.nftModelService.getNftModelById(nftModel as string),
-        //     ]);
-        //   });
-        //   forkJoin(observables).subscribe((results) => {
-        //     results.forEach((result, index) => {
-        //       const [user, model] = result;
-        //       nfts[index].user = user;
-        //       nfts[index].nftModel = model;
-        //     });
-        //     this.nfts = nfts;
-        //     console.log('nfts ', this.nfts);
-        //   });
       });
   }
 
-  private getOption(): ParamPagination & ParamNft {
+  ngOnChanges(): void {
+    this.getGaleryNft();
+  }
+
+  private getOption(): ParamPagination & ParamModel {
     this.optionPaginanition = {
       page: this.currentPage,
       itemsPerPage: this.itemsPerPage,
     };
 
     return Object.assign({}, this.optionPaginanition, this.optionNft);
+  }
+
+  handlePageEvent(pageEvent: PageEvent) {
+    this.currentIndex = pageEvent.pageIndex;
+    this.itemsPerPage = pageEvent.pageSize;
+    this.getGaleryNft();
   }
 }

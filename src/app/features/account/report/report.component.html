@@ -1,0 +1,144 @@
+<section class="container" *ngIf="loadingComplete; else spinner">
+  <h2>Report</h2>
+  <div class="row">
+    <div id="statGalery" class="col-12 col-md-6 glassBg p-4">
+      <div class="text-center my-4">
+        <h4>Value when bought (ETH) :</h4>
+        <p class="valueNumb">{{ getTotalPurchasedValue() }}</p>
+      </div>
+      <div id="ValeurGlobal" class="row my-5">
+        <div class="col-6 text-center">
+          <h4>Current value (ETH) :</h4>
+          <p class="valueNumb">{{ getGaleryCurrentValue() }}</p>
+        </div>
+        <div class="col-6 text-center">
+          <h4>Current value (EUR) :</h4>
+          <p class="valueNumb">{{ getGaleryCurrentValueEUR() }}</p>
+        </div>
+      </div>
+      <div id="ValeurPrevious" class="row my-5">
+        <div class="col-6 text-center">
+          <h4>previous value (ETH) :</h4>
+          <p class="valueNumb">{{ getGaleryPreviousValue() }}</p>
+        </div>
+        <div class="col-6 text-center">
+          <h4>previous value (EUR) :</h4>
+          <p class="valueNumb">{{ getGaleryPreviousValueEUR() }}</p>
+        </div>
+      </div>
+      <div id="perfGalery" class="row my-5">
+        <div class="col-6 text-center">
+          <h4>Evolution J-1 (ETH)</h4>
+          <p
+            *ngIf="getPerformanceGaleryEth() > 0; else negative"
+            class="valueNumb green"
+          >
+            + {{ getPerformanceGaleryEth() | number : "1.0-2" }} %
+            <i class="green bi bi-graph-up-arrow"></i>
+          </p>
+          <ng-template #negative>
+            <p class="valueNumb red">
+              {{ getPerformanceGaleryEth() | number : "1.0-2" }} %
+              <i class="red bi bi-graph-down-arrow"></i>
+            </p>
+          </ng-template>
+        </div>
+        <div class="col-6 text-center">
+          <h4>Evolution J-1 (EUR) :</h4>
+          <p
+            *ngIf="getPerformanceGaleryEUR() > 0; else EURnegative"
+            class="valueNumb green"
+          >
+            + {{ getPerformanceGaleryEUR() | number : "1.0-2" }} %
+            <i class="green bi bi-graph-up-arrow"></i>
+          </p>
+          <ng-template #EURnegative>
+            <p class="valueNumb red">
+              {{ getPerformanceGaleryEUR() | number : "1.0-2" }} %
+              <i class="red bi bi-graph-down-arrow"></i>
+            </p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div id="graph" class="col-12 col-md-6 glassBg p-4">
+      <div class="text-center">
+        <h3>Current ETH value</h3>
+        <p class="valueNumb">
+          {{ ethValue }}
+          <span class="green" *ngIf="getPerformanceETH() > 0; else ethNegative">
+            + {{ getPerformanceETH() | number : "1.0-2" }} %
+            <i class="green bi bi-graph-up-arrow"></i>
+          </span>
+          <ng-template #ethNegative>
+            <span class="red">
+              {{ getPerformanceETH() | number : "1.0-2" }} %
+              <i class="red bi bi-graph-down-arrow"></i>
+            </span>
+          </ng-template>
+        </p>
+      </div>
+
+      <app-graph [chartData]="graphData"></app-graph>
+    </div>
+  </div>
+</section>
+<section class="container" *ngIf="loadingComplete">
+  <h3>performance NFTs</h3>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let nftValue of nftValues">
+      <div nfclass="card mb-3" style="max-width: 540px">
+        <div class="row g-0">
+          <div class="col-lg-4 imageContainer">
+            <img
+              [src]="getNftImage(nftValue.nft)"
+              class="img-fluid rounded-start"
+              [alt]="getModel(nftValue.nft).name"
+            />
+          </div>
+          <div class="col-lg-8">
+            <div class="card-body">
+              <h3 class="card-title">{{ getModel(nftValue.nft).name }}</h3>
+              <p class="card-text">
+                <small class="text-body-secondary"
+                  >Purchase: {{ nftValue.nft.purchaseDate | date }}</small
+                >
+              </p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Purchase value (ETH) : {{ nftValue.nft.buyingPrice }}
+                </li>
+                <li class="list-group-item">
+                  Price J-1 (ETH) : {{ nftValue.previous.value }}
+                </li>
+                <li class="list-group-item">
+                  Current Price (ETH) : {{ nftValue.current.value }}
+
+                  <span
+                    class="green"
+                    *ngIf="getPerformanceNft(nftValue) > 0; else nftNegative"
+                  >
+                    +
+                    {{ getPerformanceNft(nftValue) }}
+                    % <i class="green bi bi-graph-up-arrow"></i>
+                  </span>
+                  <ng-template #nftNegative>
+                    <span class="red">
+                      {{ getPerformanceNft(nftValue) }}
+                      % <i class="red bi bi-graph-down-arrow"></i>
+                    </span>
+                  </ng-template>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #spinner>
+  <section class="container d-flex justify-content-center glassBg"><mat-spinner></mat-spinner></section>
+  
+</ng-template>

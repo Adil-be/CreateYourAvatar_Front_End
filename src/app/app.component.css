@@ -1,7 +1,8 @@
 header {
   width: 100%;
   position: fixed;
-  background-color: #f0e9f1;
+  background-color: #F7F8F9;
+  
   z-index: 5;
 }
 
@@ -30,6 +31,7 @@ nav ul {
 
 .container-router {
   padding-top: 100px;
+  background-color: rgba(var(--backgroundBlue),0.1);
 }
 
 @media screen and (max-width: 767px) {
@@ -66,4 +68,12 @@ i.bi {
 .navMobile i.bi {
   font-size: 2.5rem;
   margin-right: 10px;
+}
+
+mat-sidenav-content {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+ justify-content: space-between;
 }

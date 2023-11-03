@@ -10,10 +10,12 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
-/** Pass untouched request through to the next request handler. */
+/** Pass untouched request with the added token */
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+
   constructor(private localStorage: LocalStorageService) {}
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
