@@ -1,1 +1,17 @@
-<p>picture-dialog works!</p>
+<h1 mat-dialog-title>Change your picture</h1>
+<div mat-dialog-content>
+  <p>Upload the new picture</p>
+  <p>File</p>
+  <input
+    (change)="onFileSelected($event)"
+    type="file"
+    accept="image/png, image/jpeg"
+  />
+  <p>
+    <mat-error *ngIf="invalid">{{ error }}</mat-error>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">no change</button>
+  <button mat-button (click)="handleUpload()" cdkFocusInitial>submit</button>
+</div>

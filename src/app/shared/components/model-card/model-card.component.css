@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     padding: 7%;
-    background-color: hsl(216, 50%, 16%);
+    background-color: rgb(20, 37, 61);
     border-radius: 15px;
     margin-bottom: 20px;
   }
@@ -85,6 +85,8 @@
   }
   footer p {
     margin-bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .creator {
     color: #fff;

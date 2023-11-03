@@ -1,4 +1,4 @@
-import { NftModel } from './nft-model';
+import { NftModel } from '../model/nft-model';
 
 export interface ModelData {
   'hydra:member': NftModel[];

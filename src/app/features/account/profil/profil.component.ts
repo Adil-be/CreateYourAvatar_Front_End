@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ResponseRegistration } from 'src/app/core/interface/ResponseRegistration';
-import { User } from 'src/app/core/interface/user';
+import { User } from 'src/app/core/interface/model/user';
 import {
   UserInfoDialogComponent,
   userInfoData,
@@ -11,6 +11,7 @@ import { UserIdDialogComponent } from '../dialogs/user-id-dialog/user-id-dialog.
 import { PasswordDialogComponent } from '../dialogs/password-dialog/password-dialog.component';
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
+import { PictureDialogComponent } from '../dialogs/picture-dialog/picture-dialog.component';
 
 @Component({
   selector: 'app-profil',
@@ -32,6 +33,20 @@ export class ProfilComponent implements OnInit {
   ngOnInit() {
     this.auth.getCurrentUser()?.subscribe((data) => {
       this.user = data;
+    });
+  }
+  public openPictureDialog() {
+    let dialogRef = this.matDialog.open(PictureDialogComponent);
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data == true) {
+        const url = this.router.url;
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([`/${url}`]);
+          });
+      }
     });
   }
 
@@ -60,7 +75,7 @@ export class ProfilComponent implements OnInit {
 
   public openIdDialog() {
     let dialogRef = this.matDialog.open(UserIdDialogComponent, {
-      data: { username: this.user.username},
+      data: { username: this.user.username },
     });
 
     dialogRef.afterClosed().subscribe((res) => {

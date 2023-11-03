@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionData } from 'src/app/core/interface/collection-data';
-import { NftCollection } from 'src/app/core/interface/nft-collection';
+import { CollectionData } from 'src/app/core/interface/data/collection-data';
+import { NftCollection } from 'src/app/core/interface/model/nft-collection';
 import { NftCollectionService } from 'src/app/core/services/nft-collection.service';
 
 type NftCollectionArray = {

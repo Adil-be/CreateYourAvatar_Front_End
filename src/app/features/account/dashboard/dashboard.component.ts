@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { Nft } from 'src/app/core/interface/nft';
-import { NftModel } from 'src/app/core/interface/nft-model';
-import { User } from 'src/app/core/interface/user';
+import { Nft } from 'src/app/core/interface/model/nft';
+import { NftModel } from 'src/app/core/interface/model/nft-model';
+import { User } from 'src/app/core/interface/model/user';
 import { NftModelService } from 'src/app/core/services/nft-model.service';
 import { NftService } from 'src/app/core/services/nft.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     this.auth
       .getCurrentUser()
       ?.pipe(
-        // Utilisez switchMap pour passer à la récupération des NFT une fois que l'utilisateur est disponible
+        // On Utilise switchMap pour passer à la récupération des NFT une fois que l'utilisateur est disponible
         switchMap((user) => {
           if (!user) {
             return [];
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
             itemsPerPage: 4,
           });
         }),
-        // Utilisez switchMap pour effectuer des appels asynchrones pour chaque NFT et modèle
+        // On Utilise switchMap pour effectuer des appels asynchrones pour chaque NFT et modèle
         switchMap((nftData) => {
           const latestNfts = this.nftService.extractNfts(nftData);
           const observables = latestNfts.map((nft: Nft) => {
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
             return this.nftModelService.getNftModelById(nft.nftModel as string);
           });
           return forkJoin(observables).pipe(
-            // Associez les modèles de NFT à chaque NFT
+            // on Associe les modèles de NFT à chaque NFT
             switchMap((nftModels) => {
               latestNfts.forEach((nft, index) => {
                 nft.nftModel = nftModels[index];
@@ -60,7 +60,15 @@ export class DashboardComponent implements OnInit {
       )
       .subscribe((latestNfts) => {
         this.latestNfts = latestNfts;
-        console.log('nfts ', this.latestNfts);
       });
+  }
+
+  public getModel(nft: Nft) {
+    return nft.nftModel as NftModel;
+  }
+
+  public getImageNft(nft: Nft) {
+    let model = nft.nftModel as NftModel;
+    return model.nftImages![0];
   }
 }

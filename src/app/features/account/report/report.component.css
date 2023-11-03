@@ -1,0 +1,23 @@
+.valueNumb {
+  font-size: 3rem;
+}
+span {
+  margin-left: 10px;
+}
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+.imageContainer {
+  aspect-ratio: 5/3;
+  display: flex;
+}
+.imageContainer img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+  margin: auto;
+}

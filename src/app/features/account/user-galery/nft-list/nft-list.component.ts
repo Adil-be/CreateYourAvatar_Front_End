@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NftData } from 'src/app/core/interface/nft-data';
-import { ParamPagination } from 'src/app/core/interface/param-pagination';
-import { ParamNft } from 'src/app/core/interface/param-nft';
+import { NftData } from 'src/app/core/interface/data/nft-data';
+import { ParamPagination } from 'src/app/core/interface/param/param-pagination';
+import { ParamNft } from 'src/app/core/interface/param/param-nft';
 import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.service';
 
 import { NftService } from 'src/app/core/services/nft.service';
@@ -18,7 +18,7 @@ import { FullNftService } from 'src/app/core/services/full-nft.service';
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntlService }],
 })
 export class NftListComponent implements OnInit, OnChanges {
-  public nfts: any[] = [];
+  public nfts: any[] | null = null;
 
   @Input() optionNft!: ParamNft;
 
@@ -33,7 +33,10 @@ export class NftListComponent implements OnInit, OnChanges {
     return this.currentIndex + 1;
   }
 
-  public constructor(private nftService: FullNftService,private ModelService:NftModelService) {}
+  public constructor(
+    private nftService: FullNftService,
+    private ModelService: NftModelService
+  ) {}
 
   ngOnInit(): void {
     this.getGaleryNft();

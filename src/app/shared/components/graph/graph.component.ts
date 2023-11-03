@@ -9,6 +9,7 @@ import { GraphData } from 'src/app/core/interface/graph-data';
 })
 export class GraphComponent implements OnInit {
   @Input() chartData!: GraphData;
+  @Input() yAxisLabel: string = 'Value';
 
   // options
   legend: boolean = true;
@@ -19,12 +20,11 @@ export class GraphComponent implements OnInit {
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
   xAxisLabel: string = 'Date';
-  yAxisLabel: string = 'Nft Value';
   timeline: boolean = true;
 
   colorScheme = 'cool';
 
   ngOnInit(): void {
-    console.log(this.chartData);
+
   }
 }

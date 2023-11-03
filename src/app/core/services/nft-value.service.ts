@@ -2,10 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { NftValue } from '../interface/nft-value';
-import { ParamPagination } from '../interface/param-pagination';
-import { ParamNftValue } from '../interface/param-nft-value';
-import { NftValueData } from '../interface/nft-value-data';
+import { NftValue } from '../interface/model/nft-value';
+import { ParamPagination } from '../interface/param/param-pagination';
+import { ParamNftValue } from '../interface/param/param-nft-value';
+import { NftValueData } from '../interface/data/nft-value-data';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +41,7 @@ export class NftValueService {
     });
   }
 
-  public extractNftValues(nftValueData: NftValueData):NftValue[] {
+  public extractNftValues(nftValueData: NftValueData): NftValue[] {
     return nftValueData['hydra:member'];
   }
 }

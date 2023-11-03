@@ -1,10 +1,15 @@
 #SideBarAccount {
   padding: 20px;
-  max-width: 280px;
-  height: 100%;
+  max-width: 300px;
+  height: calc(100%-100px);
+  /* height: 100%; */
   background: rgba(255, 255, 255, 1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+.SideBarContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 mat-sidenav-container {
@@ -33,8 +38,8 @@ mat-slider {
 .label-container {
   display: flex;
   justify-content: space-between;
-  margin: 20px 20px 0;
-  max-width: 284px;
+  margin: 20px 0 20px 0;
+  width: 100%;
 }
 .label-container input {
   width: 50px;

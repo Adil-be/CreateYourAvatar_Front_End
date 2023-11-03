@@ -1,7 +1,7 @@
 header {
   width: 100%;
   position: fixed;
-  background-color: #F0E9F1;
+  background-color: rgba(var(--queenBlue),0.2);
   z-index: 5;
 }
 

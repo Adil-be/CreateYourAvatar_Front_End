@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
-import { ParamPagination } from '../interface/param-pagination';
+import { ParamPagination } from '../interface/param/param-pagination';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { NftCollection } from '../interface/nft-collection';
+import { NftCollection } from '../interface/model/nft-collection';
+import { CollectionData } from '../interface/data/collection-data';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,9 @@ export class NftCollectionService {
     this.nftCollectionApi = `${environment.apiUrl}${this.routeNftCollection}`;
   }
 
-  public getNftCollections(options: ParamPagination = {}): any {
+  public getNftCollections(
+    options: ParamPagination = {}
+  ): Observable<CollectionData> {
     let queryParams = new HttpParams({ fromObject: options });
 
     return this.http.get<any>(this.nftCollectionApi, { params: queryParams });
@@ -31,5 +33,9 @@ export class NftCollectionService {
     } else {
       return this.http.get<any>(`${environment.apiUrl}${id}`);
     }
+  }
+
+  public extractCollection(collectionData: CollectionData): NftCollection[] {
+    return collectionData['hydra:member'];
   }
 }

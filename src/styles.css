@@ -50,7 +50,7 @@ h3 {
 }
 
 section {
-  padding: 75px 0;
+  padding: 50px 0;
 }
 ul {
   margin: 0;
@@ -132,6 +132,12 @@ ul {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.icon-image{
+  border-radius: 50%;
+  width: 40px;
+  margin-right: 15px;
 }
 
 

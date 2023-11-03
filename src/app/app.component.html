@@ -28,7 +28,7 @@
   <mat-sidenav
     class="navMobile"
     #sidenav
-    [mode]="'side'"
+    [mode]="'over'"
     [fixedInViewport]="true"
     [(opened)]="isOpen"
     fixedTopGap="100"
@@ -41,7 +41,7 @@
       <div *ngIf="isLogin; else defaultNav">
         <mat-accordion multi>
           <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header >
+            <mat-expansion-panel-header>
               <mat-panel-title
                 ><i class="bi bi-house-door"></i> Pages</mat-panel-title
               >
@@ -83,6 +83,7 @@
               >
             </mat-expansion-panel-header>
             <ul class="violet menu-link">
+              <li><a routerLink="/account/report">Report</a></li>
               <li><a routerLink="/account/user-galery">Galery</a></li>
               <li>
                 <a routerLink="/galery" routerLinkActive="active-link"
@@ -111,7 +112,6 @@
 
   <mat-sidenav-content>
     <div class="container-router"><router-outlet></router-outlet></div>
-
     <app-footer></app-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

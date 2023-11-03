@@ -1,27 +1,26 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ParamNft, order } from 'src/app/core/interface/param-nft';
-import { Subject } from 'rxjs';
+import { ParamModel, order } from 'src/app/core/interface/param/param-model';
+import { Observable, Subject, map, mergeMap, switchMap } from 'rxjs';
+import { NftCollectionService } from 'src/app/core/services/nft-collection.service';
+import { NftCollection } from 'src/app/core/interface/model/nft-collection';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
 })
-export class IndexComponent implements OnDestroy {
-  eventsSubject: Subject<void> = new Subject<void>();
+export class IndexComponent implements OnInit, OnDestroy {
+  public nftcollections: any;
 
   filter = {
-    modelName:null,
-    description:null,
+    modelName: null,
+    description: null,
     inSale: null,
     featured: null,
     priceMin: null,
     priceMax: null,
+    collectionId: null,
 
     price: {
       check: null,
@@ -33,18 +32,31 @@ export class IndexComponent implements OnDestroy {
     },
   };
 
-  optionNft: ParamNft = {};
+  optionNftModel: ParamModel = {};
 
   isOpen = false;
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 768px)');
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private nftCollectionService: NftCollectionService
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 991px)');
 
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.nftcollections = this.nftCollectionService.getNftCollections().pipe(
+      map((res) => {
+        let nftCollections = res['hydra:member'];
+        return nftCollections;
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -52,20 +64,21 @@ export class IndexComponent implements OnDestroy {
   }
 
   public handleSubmit() {
-    let optionNft: ParamNft = {};
-    if (this.filter.modelName) optionNft['nftModel.name']= this.filter.modelName;
-    if (this.filter.description) optionNft['nftModel.description']= this.filter.description;
-    if (this.filter.inSale) optionNft.inSale = this.filter.inSale;
-    if (this.filter.featured) optionNft.featured = this.filter.featured;
+    let optionNftModel: ParamModel = {};
+    if (this.filter.modelName) optionNftModel['name'] = this.filter.modelName;
+    if (this.filter.description)
+      optionNftModel['description'] = this.filter.description;
+    if (this.filter.featured) optionNftModel.featured = this.filter.featured;
+    if (this.filter.collectionId)
+      optionNftModel['nftCollection.id'] = this.filter.collectionId;
     if (this.filter.priceMin)
-      optionNft['sellingPrice[gt]'] = this.filter.priceMin;
+      optionNftModel['initialPrice[gt]'] = this.filter.priceMin;
     if (this.filter.priceMax)
-      optionNft['sellingPrice[lt]'] = this.filter.priceMax;
+      optionNftModel['initialPrice[lt]'] = this.filter.priceMax;
     if (this.filter.price.check)
-      optionNft['order[sellingPrice]'] = this.filter.price.order as order;
+      optionNftModel['order[initialPrice]'] = this.filter.price.order as order;
     if (this.filter.nftModel.check)
-      optionNft['order[nftModel.createdAt]'] = this.filter.nftModel
-        .order as order;
-    this.optionNft = optionNft;
+      optionNftModel['order[createdAt]'] = this.filter.nftModel.order as order;
+    this.optionNftModel = optionNftModel;
   }
 }

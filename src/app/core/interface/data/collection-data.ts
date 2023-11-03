@@ -1,4 +1,4 @@
-import { NftCollection } from './nft-collection';
+import { NftCollection } from '../model/nft-collection';
 
 export interface CollectionData {
   '@context': string;

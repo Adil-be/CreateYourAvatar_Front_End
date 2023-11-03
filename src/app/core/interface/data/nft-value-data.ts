@@ -1,4 +1,4 @@
-import { NftValue } from './nft-value';
+import { NftValue } from '../model/nft-value';
 
 export interface NftValueData {
   'hydra:member': NftValue[];

@@ -3,18 +3,15 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { inject } from '@angular/core';
 
-export const authGuard: CanActivateFn = (
-  route,
-  state
-):
+export const authGuard: CanActivateFn = ():
   | Observable<boolean | UrlTree>
   | Promise<boolean | UrlTree>
   | boolean
   | UrlTree => {
-  const currentUser = inject(AuthService).isLogin();
+  const loginStatus = inject(AuthService).isLogin();
 
   //  Grants or deny access to this route
-  const isLogged = currentUser ? true : false;
+  const isLogged = loginStatus ? true : false;
 
   //  Redirects to another route
   if (!isLogged) {

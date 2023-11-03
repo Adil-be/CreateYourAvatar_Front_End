@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { User } from '../interface/user';
+import { User } from '../interface/model/user';
 import { UserRegistration } from '../interface/UserRegistration';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,8 @@ import { UserRegistration } from '../interface/UserRegistration';
 export class RegistrationService {
   registerUrl: string;
   route = '/register';
-  constructor(api: ApiService, private http: HttpClient) {
-    this.registerUrl = `${api.BaseUrl}${this.route}`;
+  constructor( private http: HttpClient) {
+    this.registerUrl = `${environment.apiUrl}${this.route}`;
   }
 
   public registerUser(user: UserRegistration): Observable<any> {

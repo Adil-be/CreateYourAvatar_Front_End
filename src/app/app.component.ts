@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './core/auth/auth.service';
-import { User } from './core/interface/user';
+import { User } from './core/interface/model/user';
 import { LocalStorageService } from './core/services/local-storage.service';
 
 @Component({
@@ -10,7 +10,10 @@ import { LocalStorageService } from './core/services/local-storage.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'BC_Front_End';
+  title = 'CreateYourAvatar';
+
+  headerHeight: number = 100;
+  footerHeight: number = 215
 
   isOpen = false;
   isLogin: boolean = false;

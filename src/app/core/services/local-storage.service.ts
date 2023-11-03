@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { User } from '../interface/user';
+import { User } from '../interface/model/user';
 import { UserCredential } from '../interface/user-credential';
 
 @Injectable({
@@ -72,6 +72,11 @@ export class LocalStorageService {
     const jsonData = JSON.stringify(user);
     localStorage.setItem('user', jsonData);
     this._user$.next(user);
+  }
+
+  getUser(): User | null {
+    const User = localStorage.getItem('user');
+    return User ? JSON.parse(User) : null;
   }
 
   clearUser() {
