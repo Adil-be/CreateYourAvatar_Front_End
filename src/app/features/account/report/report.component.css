@@ -1,6 +1,10 @@
 .valueNumb {
   font-size: 3rem;
 }
+.valueNumb .main-numb {
+  font-size: 2rem;
+}
+
 span {
   margin-left: 10px;
 }
@@ -20,4 +24,8 @@ span {
   max-height: 100%;
   vertical-align: middle;
   margin: auto;
+}
+
+i{
+  font-size: inherit
 }

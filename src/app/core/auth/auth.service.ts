@@ -28,11 +28,9 @@ export class AuthService {
   }
 
   login(user: UserLogin) {
-    
     const jsonUser = { username: user.email, password: user.password };
 
     this.http.post<any>(this.urlApiLogin, jsonUser).subscribe((res) => {
-   
       this.localStorage.setToken(res.token);
 
       const DecodedToken: UserCredential = jwt_decode(res.token);
@@ -98,7 +96,6 @@ export class AuthService {
   }
 
   getAuthUser(id: number): Observable<User> {
-    
     const token = this.localStorage.getToken();
 
     const headers = new HttpHeaders({
@@ -116,5 +113,17 @@ export class AuthService {
       user = JSON.parse(userJson) as User;
     }
     return user;
+  }
+
+  getGalery() {
+    const token = this.localStorage.getToken();
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<any>(`${environment.apiUrl}/galery`, {
+      headers: headers,
+    });
   }
 }

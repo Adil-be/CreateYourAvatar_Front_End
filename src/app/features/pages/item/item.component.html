@@ -24,23 +24,24 @@
         <p>
           Collection
           <span class="violet"
-            ><a [routerLink]="['/item/', nftModel.id]">{{
+            ><a [routerLink]="['/nftCollection/', nftModel.id]">{{
               nftCollection.name
             }}</a></span
           >
         </p>
       </div>
-      <p id="price" class="blue text price">
-        <span>{{ nftModel.initialPrice }}</span> ETH
+      <p id="price" >
+        Price : 
+        <span class="blue text price">{{ nftModel.initialPrice }}</span> ETH
         <img
           class="logoEth"
           src="../../../assets/images/eth-diamond-black.svg"
           alt=""
         />
       </p>
-      <!-- <p  class="blue text price">
-        <span>{{ nft.insale|inSale }}</span>
-      </p> -->
+      <p >
+        Quantiy available : <span class="blue text price">{{ nftModel.quantity }}</span>
+      </p>
       <div class="d-flex gap-3 justify-content-between">
         <a href="" class="btn btn-main">Connect your wallet</a
         ><a href="" class="btn btn-alt">Save in whislist</a>
@@ -50,11 +51,11 @@
 </section>
 
 <section class="container">
-  <app-graph class="graph" [chartData]="chartData"></app-graph>
+  <app-graph *ngIf="chartData" class="graph" [chartData]="chartData"></app-graph>
 </section>
-<section class="container">
+<section *ngIf="nfts" class="container">
   <h2>List of owners</h2>
-  <mat-accordion multi>
+  <mat-accordion multi >
     <mat-expansion-panel
       *ngFor="let nft of nfts"
       class="my-3 p-3"

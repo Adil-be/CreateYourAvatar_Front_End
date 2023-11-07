@@ -11,7 +11,7 @@ import { ModelData } from '../interface/data/model-data';
   providedIn: 'root',
 })
 export class NftModelService {
-  private routeModel = '/api/nft_models/';
+  public routeModel = '/api/nft_models/';
   private nftModelApi: string;
   private apiUrl = environment.apiUrl;
 

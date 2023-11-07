@@ -7,6 +7,7 @@ import { UserGaleryComponent } from './user-galery/user-galery.component';
 import { NftDetailComponent } from './Nft/detail/nft-detail.component';
 import { authGuard } from 'src/app/core/guards/auth.guard';
 import { ReportComponent } from './report/report.component';
+import { AddNftComponent } from './add-nft/add-nft.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'user-galery',
         component: UserGaleryComponent,
+      },
+      {
+        path: 'nft/add',
+        component: AddNftComponent,
       },
       {
         path: 'nft/:id',

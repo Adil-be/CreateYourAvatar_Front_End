@@ -25,9 +25,9 @@ import { DataSerie, GraphData } from 'src/app/core/interface/graph-data';
 export class ItemComponent implements OnInit {
   public nftModel: NftModel | null = null;
   public nftCollection: NftCollection | null = null;
-  public nfts: Nft[] = [];
+  public nfts: Nft[] | null = null;
   public nftValues: NftValue[] = [];
-  public chartData: GraphData = [];
+  public chartData: GraphData | null = null;
 
   public constructor(
     private nftService: NftService,

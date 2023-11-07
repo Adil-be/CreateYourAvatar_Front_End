@@ -14,6 +14,7 @@ import { EthService } from 'src/app/core/services/eth.service';
 import { NftModelService } from 'src/app/core/services/nft-model.service';
 import { NftValueService } from 'src/app/core/services/nft-value.service';
 import { NftService } from 'src/app/core/services/nft.service';
+import { NftImage } from 'src/app/core/interface/model/nft-image';
 
 @Component({
   selector: 'app-report',
@@ -46,7 +47,251 @@ export class ReportComponent implements OnInit {
   nftsPerf: any[] = [];
   graphData: GraphData = [];
 
-  // ngOnInit(): void {
+ 
+  ngOnInit(): void {
+    // this.getGalery();
+
+    // obtention des information relatives a la galere
+    this.auth.getGalery().subscribe(
+      (
+        res: {
+          nft: Nft;
+          previous: number;
+          current: number;
+          nftModel: NftModel;
+          nftImages: NftImage[];
+        }[]
+      ) => {
+        console.log('res ', res);
+        this.nftValues = res.map((entry) => {
+          let nftModel = entry.nftModel;
+          nftModel.nftImages = entry.nftImages;
+          entry.nft.nftModel = nftModel;
+
+          return {
+            current: entry.current,
+            previous: entry.previous,
+            nft: entry.nft,
+          };
+        });
+        console.log('this.nftValues ', this.nftValues);
+        this.loadingComplete = true;
+      }
+    );
+
+
+    const ObservableEth = this.EthService.getEthValues(7)
+      .pipe(
+        map((res) => {
+          let series: DataSerie = {
+            name: 'ETH',
+            series: [],
+          };
+
+          let array: any[] = [];
+
+          res.forEach((re) => {
+            const date = new Date(re.time * 1000);
+            array.push(re.close);
+            series.series.push({
+              value: re.close,
+              name: date,
+            });
+          });
+          this.ethValues = array;
+          this.graphData = [series];
+
+          const last = res.length - 1;
+          this.previousEthValue = res[last - 1].close;
+          this.currentEthValue = res[last].close;
+        })
+      )
+      .subscribe();
+
+    this.EthService.getEthValue().subscribe((res: EthValueData) => {
+      this.ethValue = res.data.rates.EUR;
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionNftData?.unsubscribe();
+  }
+
+  getNftImage(nft: Nft) {
+    const model = nft.nftModel as NftModel;
+    return model.nftImages![0].path;
+  }
+
+  getModel(nft: Nft) {
+    const model = nft.nftModel as NftModel;
+    return model;
+  }
+
+  getTotalPurchasedValue() {
+    const result = this.nftValues.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.nft.buyingPrice;
+    }, 0);
+    return Math.round(result * 100) / 100;
+  }
+
+  getGaleryCurrentValue() {
+    let current = this.nftValues.reduce((accumulator, Nftvalue) => {
+      const result = accumulator + Nftvalue.current.value;
+      return Math.round(result * 100) / 100;
+    }, 0);
+
+    return current;
+  }
+
+  getPerformanceGalery(){
+    const fraction= this.getGaleryCurrentValue()/this.getTotalPurchasedValue()
+
+    return (fraction - 1) * 100
+  }
+  getGaleryCurrentValueEUR() {
+    let current = this.nftValues.reduce((accumulator, Nftvalue) => {
+      const result = accumulator + Nftvalue.current.value;
+      return Math.round(result * 100) / 100;
+    }, 0);
+
+    const total = current * this.ethValue;
+
+    return Math.round(total * 100) / 100;
+  }
+  getGaleryPreviousValue() {
+    return this.nftValues.reduce((accumulator, Nftvalue) => {
+      const result = accumulator + Nftvalue.previous.value;
+      return Math.round(result * 100) / 100;
+    }, 0);
+  }
+  getGaleryPreviousValueEUR() {
+    const total = this.nftValues.reduce((accumulator, Nftvalue) => {
+      const sum = accumulator + Nftvalue.previous.value;
+      return sum;
+    }, 0);
+
+    const result = total * this.previousEthValue;
+    return Math.round(result * 100) / 100;
+  }
+
+  getPerformanceGaleryEth() {
+    const fraction =
+      this.getGaleryCurrentValue() / this.getGaleryPreviousValue();
+
+    // return Number.prototype.toFixed(fraction)
+
+    return (fraction - 1) * 100;
+  }
+  getPerformanceGaleryEUR() {
+    const last = this.ethValues.length - 1;
+    const currentvalueEUR = this.getGaleryCurrentValue() * this.currentEthValue;
+
+    const previousvalueEUR = this.getGaleryPreviousValueEUR();
+
+    const fraction = currentvalueEUR / previousvalueEUR;
+
+    // return Number.prototype.toFixed(fraction)
+    return (fraction - 1) * 100;
+  }
+  getPerformanceETH() {
+    const last = this.ethValues.length - 1;
+
+    const fraction = this.ethValues[last] / this.ethValues[last - 1];
+    return (fraction - 1) * 100;
+  }
+
+  getPerformanceNft(nftValues: {
+    nft: Nft;
+    current: { value: number; valueDate: Date };
+    previous: { value: number; valueDate: Date };
+  }) {
+    const fraction = nftValues.current.value / nftValues.previous.value;
+
+    return Math.round((fraction - 1) * 100);
+  }
+
+  getGalery() {
+    let observableNftData = this.auth
+      .getCurrentUser()
+      ?.pipe(
+        switchMap((user) => {
+          this.user = user;
+
+          return this.nftService
+            .getAllNft({
+              'user.id': user.id,
+              'order[purchaseDate]': 'DESC',
+            })
+            .pipe(
+              map((nftData) => {
+                return this.nftService.extractNfts(nftData);
+              })
+            );
+        })
+      )
+      .pipe(
+        switchMap((nfts: Nft[]) => {
+          this.purchasedTotalValue = nfts.reduce(
+            (accumulator, currentValue) => {
+              return accumulator + currentValue.buyingPrice;
+            },
+            0
+          );
+
+          const observable = nfts.map((nft) => {
+            const route = nft.nftModel as string;
+            return this.nftModelService.getNftModelById(route);
+          });
+
+          return forkJoin(observable).pipe(
+            map((nftmodels) => {
+              nftmodels.forEach((nftmodel, index) => {
+                nfts[index].nftModel = nftmodel;
+              });
+
+              return nfts;
+            })
+          );
+        })
+      )
+      .pipe(
+        switchMap((nfts: Nft[]) => {
+          this.nfts = nfts;
+
+          const Observable = nfts.map((nft) => {
+            const nftModel = nft.nftModel as NftModel;
+            const ParamNftValue: ParamNftValue & ParamPagination = {
+              itemsPerPage: 2,
+              'nftModel.id': nftModel.id,
+              'order[valueDate]': 'DESC',
+            };
+            return this.nftValuesService.getNftValues(ParamNftValue).pipe(
+              map((valueData) => {
+                return this.nftValuesService.extractNftValues(valueData);
+              })
+            );
+          });
+
+          return forkJoin(Observable);
+        })
+      );
+
+    this.subscriptionNftData = observableNftData?.subscribe((NftValues) => {
+      this.nftValues = NftValues.map((nftValue, index) => {
+        return {
+          nft: this.nfts[index],
+          current: nftValue[0],
+          previous: nftValue[1],
+        };
+      });
+      this.loadingComplete = true;
+    });
+  }
+
+}
+
+
+ // ngOnInit(): void {
   //   // On recupere l'utilisateur
   //   let observableNftData = this.auth
   //     .getCurrentUser()
@@ -150,205 +395,3 @@ export class ReportComponent implements OnInit {
   //     console.log('ethValue ', this.ethValue);
   //   });
   // }
-  ngOnInit(): void {
-    let observableNftData = this.auth
-      .getCurrentUser()
-      ?.pipe(
-        switchMap((user) => {
-          this.user = user;
-
-          return this.nftService
-            .getAllNft({
-              'user.id': user.id,
-              'order[purchaseDate]': 'DESC',
-            })
-            .pipe(
-              map((nftData) => {
-                return this.nftService.extractNfts(nftData);
-              })
-            );
-        })
-      )
-      .pipe(
-        switchMap((nfts: Nft[]) => {
-          this.purchasedTotalValue = nfts.reduce(
-            (accumulator, currentValue) => {
-              return accumulator + currentValue.buyingPrice;
-            },
-            0
-          );
-
-          const observable = nfts.map((nft) => {
-            const route = nft.nftModel as string;
-            return this.nftModelService.getNftModelById(route);
-          });
-
-          return forkJoin(observable).pipe(
-            map((nftmodels) => {
-              nftmodels.forEach((nftmodel, index) => {
-                nfts[index].nftModel = nftmodel;
-              });
-
-              return nfts;
-            })
-          );
-        })
-      )
-      .pipe(
-        switchMap((nfts: Nft[]) => {
-          this.nfts = nfts;
-
-          const Observable = nfts.map((nft) => {
-            const nftModel = nft.nftModel as NftModel;
-            const ParamNftValue: ParamNftValue & ParamPagination = {
-              itemsPerPage: 2,
-              'nftModel.id': nftModel.id,
-              'order[valueDate]': 'DESC',
-            };
-            return this.nftValuesService.getNftValues(ParamNftValue).pipe(
-              map((valueData) => {
-                return this.nftValuesService.extractNftValues(valueData);
-              })
-            );
-          });
-
-          return forkJoin(Observable);
-        })
-      );
-
-    this.subscriptionNftData = observableNftData?.subscribe((NftValues) => {
-      this.nftValues = NftValues.map((nftValue, index) => {
-        return {
-          nft: this.nfts[index],
-          current: nftValue[0],
-          previous: nftValue[1],
-        };
-      });
-      this.loadingComplete = true;
-    });
-
-    const ObservableEth = this.EthService.getEthValues(7)
-      .pipe(
-        map((res) => {
-          let series: DataSerie = {
-            name: 'ETH',
-            series: [],
-          };
-
-          let array: any[] = [];
-
-          res.forEach((re) => {
-            const date = new Date(re.time * 1000);
-            array.push(re.close);
-            series.series.push({
-              value: re.close,
-              name: date,
-            });
-          });
-          this.ethValues = array;
-          this.graphData = [series];
-
-          const last = res.length - 1;
-          this.previousEthValue = res[last - 1].close;
-          this.currentEthValue = res[last].close;
-   
-        })
-      )
-      .subscribe();
-
-    this.EthService.getEthValue().subscribe((res: EthValueData) => {
-      this.ethValue = res.data.rates.EUR;
-    });
-  }
-
-  ngOnDestroy() {
-    this.subscriptionNftData?.unsubscribe();
-  }
-
-  getNftImage(nft: Nft) {
-    const model = nft.nftModel as NftModel;
-    return model.nftImages![0].path;
-  }
-
-  getModel(nft: Nft) {
-    const model = nft.nftModel as NftModel;
-    return model;
-  }
-
-  getTotalPurchasedValue() {
-    const result = this.nftValues.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.nft.buyingPrice;
-    }, 0);
-    return Math.round(result * 100) / 100;
-  }
-
-  getGaleryCurrentValue() {
-    let current = this.nftValues.reduce((accumulator, Nftvalue) => {
-      const result = accumulator + Nftvalue.current.value;
-      return Math.round(result * 100) / 100;
-    }, 0);
-
-    return current;
-  }
-  getGaleryCurrentValueEUR() {
-    let current = this.nftValues.reduce((accumulator, Nftvalue) => {
-      const result = accumulator + Nftvalue.current.value;
-      return Math.round(result * 100) / 100;
-    }, 0);
-
-    const total = current * this.ethValue;
-
-    return Math.round(total * 100) / 100;
-  }
-  getGaleryPreviousValue() {
-    return this.nftValues.reduce((accumulator, Nftvalue) => {
-      const result = accumulator + Nftvalue.previous.value;
-      return Math.round(result * 100) / 100;
-    }, 0);
-  }
-  getGaleryPreviousValueEUR() {
-    const total = this.nftValues.reduce((accumulator, Nftvalue) => {
-      const sum = accumulator + Nftvalue.previous.value;
-      return sum ;
-    }, 0);
-
-    const result = total * this.previousEthValue;
-    return Math.round(result * 100) / 100;
-  }
-
-  getPerformanceGaleryEth() {
-    const fraction =
-      this.getGaleryCurrentValue() / this.getGaleryPreviousValue();
-
-    // return Number.prototype.toFixed(fraction)
-
-    return (fraction - 1) * 100;
-  }
-  getPerformanceGaleryEUR() {
-    const last = this.ethValues.length - 1;
-    const currentvalueEUR = this.getGaleryCurrentValue() * this.currentEthValue;
-
-    const previousvalueEUR = this.getGaleryPreviousValueEUR();
-
-    const fraction = currentvalueEUR / previousvalueEUR;
-
-    // return Number.prototype.toFixed(fraction)
-    return (fraction - 1) * 100;
-  }
-  getPerformanceETH() {
-    const last = this.ethValues.length - 1;
-
-    const fraction = this.ethValues[last] / this.ethValues[last - 1];
-    return (fraction - 1) * 100;
-  }
-
-  getPerformanceNft(nftValues: {
-    nft: Nft;
-    current: { value: number; valueDate: Date };
-    previous: { value: number; valueDate: Date };
-  }) {
-    const fraction = nftValues.current.value / nftValues.previous.value;
-
-    return Math.round((fraction - 1) * 100);
-  }
-}

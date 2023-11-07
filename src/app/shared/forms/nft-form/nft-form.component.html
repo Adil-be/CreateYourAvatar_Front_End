@@ -1,0 +1,65 @@
+<form
+  class="col-12 col-md-6 mx-auto"
+  [formGroup]="nftForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h2>Add your Nft</h2>
+
+  <div class="form-group my-3">
+    <label for="token" class="fs-3">Token address</label>
+    <input
+      class="form-control fs-3"
+      type="token"
+      formControlName="token"
+      id="token"
+      aria-describedby="tokenHelp"
+      placeholder="Enter token"
+    />
+    <div [hidden]="token.valid || token.pristine" class="alert alert-danger">
+      token is required
+    </div>
+  </div>
+  <div class="form-group my-3">
+    <div><label for="inSale" class="fs-3">Sale Status :</label></div>
+    <mat-checkbox id="inSale" class="example-margin" formControlName="inSale"
+      >In sale</mat-checkbox
+    >
+  </div>
+  <div [hidden]="inSale.valid" class="alert alert-danger">
+    Must be a checkbox input
+  </div>
+  <p>Choose your NFT model</p>
+  <div *ngIf="nftModel">
+    <img class="nftImage" [src]="getModelImage()" alt="" />
+  </div>
+  <mat-form-field>
+    <mat-label>Nft Models</mat-label>
+    <input
+      #input
+      type="text"
+      matInput
+      formControlName="nftModel"
+      required
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option
+        *ngFor="let nftModel of filteredOptions | async"
+        [value]="nftModel"
+      >
+        {{ nftModel.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div *ngIf="!nftForm.valid || nftForm.pristine">
+    <p>Complete the form to enable the button</p>
+  </div>
+  <div>
+    <input
+      [disabled]="!nftForm.valid"
+      type="submit"
+      class="btn btn-main my-3"
+      value="submit"
+    />
+  </div>
+</form>

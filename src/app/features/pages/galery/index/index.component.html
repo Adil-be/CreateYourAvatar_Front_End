@@ -52,7 +52,7 @@
           <input [(ngModel)]="filter.priceMax" />
         </div>
         <div class="mx-4" *ngIf="!mobileQuery.matches">
-          <mat-slider #slider min="0" max="10" step="0.01">
+          <mat-slider #slider min="0" max="10" step="0.1">
             <input [(ngModel)]="filter.priceMin" matSliderStartThumb />
             <input [(ngModel)]="filter.priceMax" matSliderEndThumb />
           </mat-slider>

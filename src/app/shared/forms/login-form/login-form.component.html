@@ -39,11 +39,13 @@
     <p>Complete the form to enable the button</p>
   </div>
   <input
+    *ngIf="!loading; else spinner"
     [disabled]="!loginForm.valid"
     type="submit"
     class="btn btn-main my-3"
     value="submit"
   />
+  <ng-template #spinner><mat-spinner></mat-spinner> </ng-template>
   <div
     *ngIf="response"
     class="notif"
@@ -53,5 +55,13 @@
     }"
   >
     {{ response.message }}
+  </div>
+  <div>
+    <a
+      routerLink="/register"
+      class="text-center fw-light text-primary text-decoration-underline"
+    >
+      create your account</a
+    >
   </div>
 </form>
