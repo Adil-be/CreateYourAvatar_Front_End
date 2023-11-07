@@ -1,16 +1,18 @@
 <div>
-  <div class="row row-gap-1" *ngIf="nfts;else spinner">
+  <div class="row row-gap-1" *ngIf="nfts; else spinner">
     <div
       *ngFor="let nft of nfts"
       id="nft"
       class="col-10 offset-1 offset-md-0 col-md-6 col-lg-4 col-xl-3"
+    
     >
       <app-nft-owned [nft]="nft"></app-nft-owned>
     </div>
   </div>
   <ng-template #spinner>
-    <div class="row d-flex justify-content-center glassBg"><mat-spinner></mat-spinner></div>
-    
+    <div class="row d-flex justify-content-center glassBg">
+      <mat-spinner></mat-spinner>
+    </div>
   </ng-template>
   <mat-paginator
     [length]="max"

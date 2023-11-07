@@ -9,3 +9,11 @@
   width: fit-content;
   margin: auto;
 }
+
+.image-icon{
+  font-size: 50px;
+}
+.carrousel{
+  overflow-x: scroll;
+  width: 100%;
+}

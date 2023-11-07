@@ -3,13 +3,25 @@
   <div class="row">
     <div id="statGalery" class="col-12 col-md-6 glassBg p-4">
       <div class="text-center my-4">
-        <h4>Value when bought (ETH) :</h4>
-        <p class="valueNumb">{{ getTotalPurchasedValue() }}</p>
+        <h4>Current value (ETH)</h4>
+        <p class="valueNumb ">{{  getGaleryCurrentValue() }}
+          <span class="green main-numb" *ngIf="getPerformanceGalery() >= 0; else galeryNegative">
+            + {{ getPerformanceGalery() | number : "1.0-2" }} %
+            <i class="green bi bi-graph-up-arrow"></i>
+          </span>
+          <ng-template #galeryNegative>
+            <span class="red main-numb">
+              {{ getPerformanceGalery() | number : "1.0-2" }} %
+              <i class="red bi bi-graph-down-arrow"></i>
+            </span>
+          </ng-template>
+          
+        </p>
       </div>
       <div id="ValeurGlobal" class="row my-5">
         <div class="col-6 text-center">
-          <h4>Current value (ETH) :</h4>
-          <p class="valueNumb">{{ getGaleryCurrentValue() }}</p>
+          <h4>Value when bought (ETH) :</h4>
+          <p class="valueNumb">{{getTotalPurchasedValue() }}</p>
         </div>
         <div class="col-6 text-center">
           <h4>Current value (EUR) :</h4>
@@ -30,7 +42,7 @@
         <div class="col-6 text-center">
           <h4>Evolution J-1 (ETH)</h4>
           <p
-            *ngIf="getPerformanceGaleryEth() > 0; else negative"
+            *ngIf="getPerformanceGaleryEth() >= 0; else negative"
             class="valueNumb green"
           >
             + {{ getPerformanceGaleryEth() | number : "1.0-2" }} %
@@ -46,7 +58,7 @@
         <div class="col-6 text-center">
           <h4>Evolution J-1 (EUR) :</h4>
           <p
-            *ngIf="getPerformanceGaleryEUR() > 0; else EURnegative"
+            *ngIf="getPerformanceGaleryEUR() >= 0; else EURnegative"
             class="valueNumb green"
           >
             + {{ getPerformanceGaleryEUR() | number : "1.0-2" }} %
@@ -66,12 +78,12 @@
         <h3>Current ETH value</h3>
         <p class="valueNumb">
           {{ ethValue }}
-          <span class="green" *ngIf="getPerformanceETH() > 0; else ethNegative">
+          <span class="green main-numb" *ngIf="getPerformanceETH() >= 0; else ethNegative">
             + {{ getPerformanceETH() | number : "1.0-2" }} %
             <i class="green bi bi-graph-up-arrow"></i>
           </span>
           <ng-template #ethNegative>
-            <span class="red">
+            <span class="red main-numb">
               {{ getPerformanceETH() | number : "1.0-2" }} %
               <i class="red bi bi-graph-down-arrow"></i>
             </span>

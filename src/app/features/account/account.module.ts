@@ -23,6 +23,7 @@ import { ModifyNftComponent } from './Nft/modify-nft/modify-nft.component';
 import { NftDetailComponent } from './Nft/detail/nft-detail.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { ReportComponent } from './report/report.component';
+import { AddNftComponent } from './add-nft/add-nft.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ReportComponent } from './report/report.component';
     ModifyNftComponent,
     NftDetailComponent,
     ReportComponent,
+    AddNftComponent,
   ],
   imports: [
     CommonModule,

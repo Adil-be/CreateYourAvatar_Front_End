@@ -15,6 +15,8 @@ export class LoginFormComponent {
 
   public response: ResponseRegistration | null = null;
 
+  public loading: boolean = false;
+
   loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -31,6 +33,7 @@ export class LoginFormComponent {
   }
 
   public onSubmit() {
+    this.loading = true;
     this.loginForm.value.email;
     let user: UserLogin = {
       email: this.loginForm.value.email!,

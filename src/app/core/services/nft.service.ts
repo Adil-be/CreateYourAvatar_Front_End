@@ -20,7 +20,7 @@ export class NftService {
   private nftApiUrl: string;
   private apiUrl = environment.apiUrl;
 
-  private routeNft = '/api/nfts/';
+  private routeNft = '/api/nfts';
 
   constructor(
     private http: HttpClient,
@@ -45,7 +45,7 @@ export class NftService {
     if (typeof idOrRoute == 'string') {
       return this.http.get<Nft>(`${this.apiUrl}${idOrRoute}`);
     } else {
-      return this.http.get<Nft>(`${this.nftApiUrl}${idOrRoute}`);
+      return this.http.get<Nft>(`${this.nftApiUrl}/${idOrRoute}`);
     }
   }
 
@@ -117,8 +117,12 @@ export class NftService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/merge-patch+json',
     });
-    return this.http.patch(`${this.nftApiUrl}${id}`, data, {
+    return this.http.patch(`${this.nftApiUrl}/${id}`, data, {
       headers: headers,
     });
+  }
+
+  public postNft(nft: any) {
+    return this.http.post(this.nftApiUrl, nft);
   }
 }

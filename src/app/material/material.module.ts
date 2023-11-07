@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -36,6 +38,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDividerModule,
     MatListModule,
     MatSelectModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatProgressSpinnerModule,
@@ -54,6 +58,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatDividerModule,
     MatListModule,
     MatSelectModule,
+    MatAutocompleteModule,
+    MatSnackBarModule
   ],
 })
 export class MaterialModule {}

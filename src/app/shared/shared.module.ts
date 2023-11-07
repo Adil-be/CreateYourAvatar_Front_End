@@ -15,6 +15,8 @@ import { CollectionCardComponent } from './components/collection-card/collection
 import { ModelCardComponent } from './components/model-card/model-card.component';
 import { GraphComponent } from './components/graph/graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NftFormComponent } from './forms/nft-form/nft-form.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CollectionCardComponent,
     ModelCardComponent,
     GraphComponent,
+    NftFormComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ReactiveFormsModule,
     RouterModule,
     ReactiveFormsModule,
+    MaterialModule,
     NgxChartsModule, 
   ],
   exports: [
@@ -47,7 +51,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     InSalePipe,
     CollectionCardComponent,
     ModelCardComponent,
-    GraphComponent
+    GraphComponent,
+    NftFormComponent
   ],
 })
 export class SharedModule {}

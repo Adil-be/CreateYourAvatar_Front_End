@@ -1,3 +1,25 @@
+<section class="container">
+  <div class="d-flex justify-content-between mb-4">
+    <h3>NFT Recently Aquired :</h3>
+    <a mat-raised-button routerLink="/account/user-galery" 
+      >See all</a
+    >
+  </div>
+
+  <div class="row glassBg p-5 carrousel flex-nowrap">
+    <div *ngFor="let nft of latestNfts"  class="col-8  offset-md-0 col-md-6 col-lg-4 col-xl-3">
+      <app-nft-owned [nft]="nft"></app-nft-owned>
+    </div>
+  </div>
+  <div>
+    <a
+      routerLink="/account/user-galery"
+      class="d-flex align-items-center justify-content-end"
+      >See all <i class="bi bi-arrow-right px-3"></i
+    ></a>
+  </div>
+</section>
+
 <section *ngIf="user" class="container" id="profil">
   <h2>My profile</h2>
   <div class="row glassBg p-5">
@@ -5,7 +27,7 @@
       <img [src]="user.userImage.path" alt="image profil" />
     </div>
     <div class="col-10 offset-1 col-md-4 offset-md-0 p-5" id="profilCard">
-      <h2>{{ user.username! }}</h2>
+      <h3>{{ user.username! }}</h3>
       <p>email : {{ user.email }}</p>
       <p>firstname : {{ user.firstname }}</p>
       <p>lastname : {{ user.lastname }}</p>
@@ -18,31 +40,27 @@
     </div>
   </div>
 </section>
-<section class="container">
-  <div class="d-flex justify-content-between">
-    <h3>NFT Recently Aquired :</h3>
-    <a mat-raised-button routerLink="/account/user-galery" target="_blank"
-      >See all</a
-    >
-  </div>
-  <mat-list>
-    <div mat-subheader>Nft</div>
-    <mat-list-item *ngFor="let nft of latestNfts">
-      <div matListItemTitle><img [src]="getImageNft(nft).path" alt="" class="icon-image" />{{ getModel(nft).name }} Id # {{ nft.id }}</div>
-      <div matListItemLine>{{ nft.purchaseDate | date }}</div>
-    </mat-list-item>
-  </mat-list>
 
+<section class="container">
   <div class="row glassBg p-5">
-    <div *ngFor="let nft of latestNfts" class="col-6 col-lg-3">
-      <app-nft-owned [nft]="nft"></app-nft-owned>
+    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-center">
+      <i class="bi bi-clipboard-data image-icon"></i>
+    </div>
+    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center">
+      <h2>Report</h2>
+      <a class="btn btn-main" routerLink="/account/report">See Report</a>
     </div>
   </div>
-  <div>
-    <a
-      routerLink="/account/user-galery"
-      class="d-flex align-items-center justify-content-end"
-      >See all <i class="bi bi-arrow-right px-3"></i
-    ></a>
+</section>
+<section class="container">
+  <div class="row glassBg p-5">
+    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-center">
+      <i class="bi bi-columns-gap image-icon"></i>
+    </div>
+    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center">
+      <h2>See Galery</h2>
+      <a class="btn btn-main" routerLink="/account/user-galery">See Galery</a>
+    </div>
   </div>
 </section>
+

@@ -71,8 +71,7 @@
           [(ngModel)]="filter.purchase.order"
         >
           <mat-radio-button value="ASC">ASC</mat-radio-button>
-          <mat-radio-button value="DESC">DESC</mat-radio-button
-          >
+          <mat-radio-button value="DESC">DESC</mat-radio-button>
         </mat-radio-group>
       </div>
     </div>
@@ -87,6 +86,7 @@
   <mat-sidenav-content>
     <section class="container">
       <h1 class="text-center">Your nfts</h1>
+      <div class="text-center"> <button routerLink="/account/nft/add" class="btn btn-main">Add Nft</button></div>
       <div id="sidePannelButton">
         <span>
           Filter <i class="bi bi-filter" (click)="sidenav.toggle()"></i>
