@@ -4,7 +4,7 @@
       <mat-spinner class="mx-auto"></mat-spinner>
     </div>
   </ng-template>
-  <div class="row row-gap-1" *ngIf="nftModels; else spinner">
+  <div class="row row-gap-1" *ngIf="nftModels$ |async as nftModels; else spinner">
     <div
       *ngFor="let nftModel of nftModels"
       id="nft"

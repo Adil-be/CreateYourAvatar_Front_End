@@ -17,6 +17,7 @@ import { GraphComponent } from './components/graph/graph.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NftFormComponent } from './forms/nft-form/nft-form.component';
 import { MaterialModule } from '../material/material.module';
+import { AlertComponent } from './components/alert/alert.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MaterialModule } from '../material/material.module';
     ModelCardComponent,
     GraphComponent,
     NftFormComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,

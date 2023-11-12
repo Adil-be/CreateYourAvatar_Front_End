@@ -27,7 +27,7 @@ export class NftCardComponent implements OnInit, OnChanges {
 
   get image() {
     let model = this.nftModel as NftModel;
-    return model.nftImages ? model.nftImages[0] : false;
+    return model.nftImage ? model.nftImage : false;
   }
 
   ngOnChanges() {}

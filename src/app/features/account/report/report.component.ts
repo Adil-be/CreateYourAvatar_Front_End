@@ -59,13 +59,13 @@ export class ReportComponent implements OnInit {
           previous: number;
           current: number;
           nftModel: NftModel;
-          nftImages: NftImage[];
+          nftImage: NftImage;
         }[]
       ) => {
-        console.log('res ', res);
+        
         this.nftValues = res.map((entry) => {
           let nftModel = entry.nftModel;
-          nftModel.nftImages = entry.nftImages;
+          nftModel.nftImage = entry.nftImage;
           entry.nft.nftModel = nftModel;
 
           return {
@@ -74,7 +74,7 @@ export class ReportComponent implements OnInit {
             nft: entry.nft,
           };
         });
-        console.log('this.nftValues ', this.nftValues);
+       
         this.loadingComplete = true;
       }
     );
@@ -119,7 +119,7 @@ export class ReportComponent implements OnInit {
 
   getNftImage(nft: Nft) {
     const model = nft.nftModel as NftModel;
-    return model.nftImages![0].path;
+    return model.nftImage!.path;
   }
 
   getModel(nft: Nft) {

@@ -1,16 +1,25 @@
 <section class="container">
   <div class="d-flex justify-content-between mb-4">
     <h3>NFT Recently Aquired :</h3>
-    <a mat-raised-button routerLink="/account/user-galery" 
-      >See all</a
-    >
+    <a mat-raised-button routerLink="/account/user-galery">See all</a>
   </div>
 
-  <div class="row glassBg p-5 carrousel flex-nowrap">
-    <div *ngFor="let nft of latestNfts"  class="col-8  offset-md-0 col-md-6 col-lg-4 col-xl-3">
+  <div
+    class="row glassBg p-5 carrousel flex-nowrap"
+    *ngIf="latestNfts$ | async as latestNfts; else spinner"
+  >
+    <div
+      *ngFor="let nft of latestNfts"
+      class="col-8 offset-md-0 col-md-6 col-lg-4 col-xl-3"
+    >
       <app-nft-owned [nft]="nft"></app-nft-owned>
     </div>
   </div>
+  <ng-template #spinner>
+    <div class="row glassBg">
+      <mat-spinner class="mx-auto"></mat-spinner>
+    </div>
+  </ng-template>
   <div>
     <a
       routerLink="/account/user-galery"
@@ -46,7 +55,9 @@
     <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-center">
       <i class="bi bi-clipboard-data image-icon"></i>
     </div>
-    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center">
+    <div
+      class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center"
+    >
       <h2>Report</h2>
       <a class="btn btn-main" routerLink="/account/report">See Report</a>
     </div>
@@ -57,10 +68,11 @@
     <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-center">
       <i class="bi bi-columns-gap image-icon"></i>
     </div>
-    <div class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center">
+    <div
+      class="col-10 offset-1 col-md-4 offset-md-0 p-5 text-md-start text-center"
+    >
       <h2>See Galery</h2>
       <a class="btn btn-main" routerLink="/account/user-galery">See Galery</a>
     </div>
   </div>
 </section>
-

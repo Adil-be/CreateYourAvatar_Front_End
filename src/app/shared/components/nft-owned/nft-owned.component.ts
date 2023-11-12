@@ -14,6 +14,6 @@ export class NftOwnedComponent {
   public constructor() {}
 
   ngOnInit(): void {
-    this.firstImage = this.nft.nftModel.nftImages[0];
+    this.firstImage = this.nft.nftModel.nftImage;
   }
 }

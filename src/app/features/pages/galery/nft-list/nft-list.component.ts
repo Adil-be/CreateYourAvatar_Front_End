@@ -5,8 +5,9 @@ import { PaginatorIntlService } from 'src/app/core/services/paginator-intl.servi
 import { NftModelService } from 'src/app/core/services/nft-model.service';
 import { ModelData } from 'src/app/core/interface/data/model-data';
 import { NftCollectionService } from 'src/app/core/services/nft-collection.service';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { ParamModel } from 'src/app/core/interface/param/param-model';
+import { NftModel } from 'src/app/core/interface/model/nft-model';
 
 @Component({
   selector: 'app-nft-list',
@@ -15,7 +16,7 @@ import { ParamModel } from 'src/app/core/interface/param/param-model';
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntlService }],
 })
 export class NftListComponent implements OnInit, OnChanges {
-  public nftModels: any[] | null = null;
+  public nftModels$: Observable<NftModel[]> | null = null;
 
   @Input() optionNft!: ParamModel;
 
@@ -39,10 +40,10 @@ export class NftListComponent implements OnInit, OnChanges {
   }
 
   getGaleryNft() {
-    this.nftModelService
+    this.nftModels$ = this.nftModelService
       .getModels(this.getOption())
-      .subscribe((data: ModelData) => {
-        console.log('data ', data);
+      .pipe(switchMap((data: ModelData) => {
+        
         this.max = data['hydra:totalItems'];
         let nftModels = this.nftModelService.extractNfts(data);
 
@@ -51,14 +52,13 @@ export class NftListComponent implements OnInit, OnChanges {
           return this.collectionService.getNftCollection(route);
         });
 
-        forkJoin(observables).subscribe((collections) => {
+        return forkJoin(observables).pipe(map((collections,index) => {
           collections.forEach((collection, index) => {
             nftModels[index].nftCollection = collection;
           });
-          this.nftModels = nftModels;
-          console.log('nftModels ', this.nftModels);
-        });
-      });
+          return  nftModels;
+        }));
+      }));
   }
 
   ngOnChanges(): void {

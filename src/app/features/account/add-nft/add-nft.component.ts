@@ -6,6 +6,7 @@ import { Nft, PartialNft } from 'src/app/core/interface/model/nft';
 import { NftModel } from 'src/app/core/interface/model/nft-model';
 import { NftValueService } from 'src/app/core/services/nft-value.service';
 import { NftService } from 'src/app/core/services/nft.service';
+import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
 
 @Component({
   selector: 'app-add-nft',
@@ -47,12 +48,16 @@ export class AddNftComponent {
 
       this.nftService.postNft(nft).subscribe((res) => {
         console.log(res);
-        this.openSnackBar('NFT successfuly Added !!', 'close');
+        this.openSnackBar('NFT successfuly Added !!', 'success');
       });
     });
   }
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, { duration: 10000,horizontalPosition: 'center',
-      verticalPosition: 'bottom', });
+  openSnackBar(message: string, classeName: string) {
+    this._snackBar.openFromComponent(AlertComponent, {
+      duration: 10000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      data: { message: message, classeName: classeName },
+    });
   }
 }

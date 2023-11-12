@@ -54,7 +54,7 @@ export class NftFormComponent implements OnInit, OnDestroy {
     const nftModel = this.nftForm.value.nftModel;
     return nftModel
       ? typeof nftModel == 'object'
-        ? nftModel.nftImages![0].path
+        ? nftModel.nftImage!.path
         : null
       : null;
   }
