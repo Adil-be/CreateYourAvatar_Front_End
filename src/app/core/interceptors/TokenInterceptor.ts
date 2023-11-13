@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 /** Pass untouched request with the added token */

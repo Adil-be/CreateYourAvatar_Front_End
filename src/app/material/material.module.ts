@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -40,6 +41,7 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatProgressSpinnerModule,
@@ -59,7 +61,8 @@ import { MatSnackBarModule} from '@angular/material/snack-bar';
     MatListModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
 })
 export class MaterialModule {}

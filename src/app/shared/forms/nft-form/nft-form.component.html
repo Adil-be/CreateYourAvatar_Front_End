@@ -54,7 +54,7 @@
   <div *ngIf="!nftForm.valid || nftForm.pristine">
     <p>Complete the form to enable the button</p>
   </div>
-  <div>
+  <div *ngIf="!loading; else spinner">
     <input
       [disabled]="!nftForm.valid"
       type="submit"
@@ -62,4 +62,5 @@
       value="submit"
     />
   </div>
+  <ng-template #spinner><mat-spinner></mat-spinner></ng-template>
 </form>

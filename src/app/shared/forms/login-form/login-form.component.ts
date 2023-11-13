@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { map } from 'd3';
+import { Subscription, catchError, of } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ResponseRegistration } from 'src/app/core/interface/ResponseRegistration';
 import { UserLogin } from 'src/app/core/interface/UserLogin';
@@ -10,10 +13,14 @@ import { User } from 'src/app/core/interface/model/user';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
 })
-export class LoginFormComponent {
-  public constructor(private auth: AuthService) {}
+export class LoginFormComponent implements OnDestroy {
+  public constructor(private auth: AuthService, private router: Router) {}
 
   public response: ResponseRegistration | null = null;
+
+  private subscription: Subscription | null = null;
+
+  public error: string | null = null;
 
   public loading: boolean = false;
 
@@ -32,6 +39,10 @@ export class LoginFormComponent {
     return this.loginForm.get('password')!;
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe;
+  }
+
   public onSubmit() {
     this.loading = true;
     this.loginForm.value.email;
@@ -39,7 +50,19 @@ export class LoginFormComponent {
       email: this.loginForm.value.email!,
       password: this.loginForm.value.password!,
     };
+    this.response = null;
 
-    this.auth.login(user);
+    this.auth
+      .login(user)
+      .pipe(
+        catchError((error) => {
+          this.loading = false;
+          this.response = { success: false, message: 'login attenpt failed !' };
+          return of(error);
+        })
+      )
+      .subscribe((res) => {
+        this.router.navigate(['/account']);
+      });
   }
 }

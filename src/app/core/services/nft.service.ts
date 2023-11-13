@@ -42,7 +42,9 @@ export class NftService {
   public getNfById(route: string): Observable<Nft>;
   public getNfById(id: number): Observable<Nft>;
   public getNfById(idOrRoute: number | string): Observable<Nft> {
+  
     if (typeof idOrRoute == 'string') {
+      console.log('ok');
       return this.http.get<Nft>(`${this.apiUrl}${idOrRoute}`);
     } else {
       return this.http.get<Nft>(`${this.nftApiUrl}/${idOrRoute}`);

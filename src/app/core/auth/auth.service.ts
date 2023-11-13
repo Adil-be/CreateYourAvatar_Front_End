@@ -3,7 +3,15 @@ import { Injectable } from '@angular/core';
 import { User } from '../interface/model/user';
 import jwt_decode from 'jwt-decode';
 import { UserCredential } from '../interface/user-credential';
-import { Observable, Observer, pipe } from 'rxjs';
+import {
+  Observable,
+  Observer,
+  catchError,
+  map,
+  pipe,
+  switchMap,
+  throwError,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../services/local-storage.service';
 import { UserLogin } from '../interface/UserLogin';
@@ -30,29 +38,33 @@ export class AuthService {
   login(user: UserLogin) {
     const jsonUser = { username: user.email, password: user.password };
 
-    this.http.post<any>(this.urlApiLogin, jsonUser).subscribe((res) => {
-      this.localStorage.setToken(res.token);
+    return this.http.post<any>(this.urlApiLogin, jsonUser).pipe(
+      switchMap((res) => {
+        this.localStorage.setToken(res.token);
 
-      const DecodedToken: UserCredential = jwt_decode(res.token);
+        const DecodedToken: UserCredential = jwt_decode(res.token);
 
-      this.localStorage.setUserCredentials(DecodedToken);
+        this.localStorage.setUserCredentials(DecodedToken);
 
-      const id = DecodedToken.id;
+        const id = DecodedToken.id;
 
-      this.getAuthUser(id).subscribe((user) => {
-        this.localStorage.setUser(user);
+        return this.getAuthUser(id).pipe(
+          map((user) => {
+            this.localStorage.setUser(user);
 
-        this.router.navigate(['/account']);
-      });
-    });
+            // this.router.navigate(['/account']);
+          })
+        );
+      })
+    );
   }
 
   isLogin(): boolean {
-    const UserCred = this.getCredentiel();
+    const DecodedToken = this.getDecodedToken();
 
-    if (UserCred) {
+    if (DecodedToken) {
       try {
-        const expirationDate = new Date(UserCred.exp * 1000);
+        const expirationDate = new Date(DecodedToken.exp * 1000);
         const now = new Date();
 
         if (now < expirationDate) {
@@ -79,17 +91,22 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  getCredentiel(): UserCredential | null {
+  getDecodedToken(): UserCredential | null {
     const JSONCredentials = localStorage.getItem('userCredentials');
 
     return JSONCredentials ? JSON.parse(JSONCredentials) : null;
   }
 
   getCurrentUser(): Observable<User> | undefined {
-    const credential: UserCredential | null = this.getCredentiel();
+    const credential: UserCredential | null = this.getDecodedToken();
 
     if (credential) {
-      return this.http.get<User>(`${this.urlApiUser}/${credential.id}`);
+      return this.http.get<User>(`${this.urlApiUser}/${credential.id}`).pipe(
+        map((user) => {
+          this.localStorage.setUser(user);
+          return user;
+        })
+      );
     } else {
       return undefined;
     }
@@ -122,7 +139,7 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-    return this.http.get<any>(`${environment.apiUrl}/galery`, {
+    return this.http.get<any>(`${environment.apiUrl}/api/galery`, {
       headers: headers,
     });
   }

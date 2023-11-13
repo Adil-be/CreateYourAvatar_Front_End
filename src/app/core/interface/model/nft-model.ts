@@ -14,5 +14,5 @@ export interface NftModel {
   nftCollection?: NftCollection | string;
   categories?: any[];
   nftValues: NftValue[] | string[];
-  nftImages?: NftImage[];
+  nftImage?: NftImage;
 }
