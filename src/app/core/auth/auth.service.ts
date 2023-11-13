@@ -3,7 +3,15 @@ import { Injectable } from '@angular/core';
 import { User } from '../interface/model/user';
 import jwt_decode from 'jwt-decode';
 import { UserCredential } from '../interface/user-credential';
-import { EMPTY, Observable, Observer, catchError, map, of, pipe, switchMap, throwError } from 'rxjs';
+import {
+  Observable,
+  Observer,
+  catchError,
+  map,
+  pipe,
+  switchMap,
+  throwError,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../services/local-storage.service';
 import { UserLogin } from '../interface/UserLogin';
@@ -27,18 +35,11 @@ export class AuthService {
     this.urlApiUser = `${environment.apiUrl}${this.routeUser}`;
   }
 
-  login(user: UserLogin):  Observable<any> {
+  login(user: UserLogin) {
     const jsonUser = { username: user.email, password: user.password };
 
-    return this.http
-      .post<any>(this.urlApiLogin, jsonUser)
-      .pipe(
-        catchError((error) => {
-          console.error('Erreur lors de la connexion:', error);
-          return of(error);
-        })
-      )
-      .pipe(switchMap(res => {
+    return this.http.post<any>(this.urlApiLogin, jsonUser).pipe(
+      switchMap((res) => {
         this.localStorage.setToken(res.token);
 
         const DecodedToken: UserCredential = jwt_decode(res.token);
@@ -47,11 +48,15 @@ export class AuthService {
 
         const id = DecodedToken.id;
 
-        return this.getAuthUser(id).pipe(map((user => {
-          this.localStorage.setUser(user);
+        return this.getAuthUser(id).pipe(
+          map((user) => {
+            this.localStorage.setUser(user);
 
-        })));
-      }));
+            // this.router.navigate(['/account']);
+          })
+        );
+      })
+    );
   }
 
   isLogin(): boolean {
@@ -96,7 +101,12 @@ export class AuthService {
     const credential: UserCredential | null = this.getDecodedToken();
 
     if (credential) {
-      return this.http.get<User>(`${this.urlApiUser}/${credential.id}`);
+      return this.http.get<User>(`${this.urlApiUser}/${credential.id}`).pipe(
+        map((user) => {
+          this.localStorage.setUser(user);
+          return user;
+        })
+      );
     } else {
       return undefined;
     }

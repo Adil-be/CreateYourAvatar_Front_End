@@ -109,7 +109,7 @@
       <div id="carouselContainer" class="row">
         <a
           *ngFor="let nftCollection of nftCollections"
-          class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto"
+          class="slide col-9 col-sm-6 offset-2 offset-sm-0 mx-auto mb-4"
           [routerLink]="['/nftCollection/', nftCollection.id]"
           ><img [src]="nftCollection.path" alt=""
         /></a>

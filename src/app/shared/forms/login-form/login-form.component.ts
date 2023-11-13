@@ -52,13 +52,12 @@ export class LoginFormComponent implements OnDestroy {
     };
     this.response = null;
 
-    this.subscription = this.auth
+    this.auth
       .login(user)
       .pipe(
         catchError((error) => {
           this.loading = false;
-          this.response = { success: false, message: error.message };
-          console.error('Erreur lors de la connexion:', error);
+          this.response = { success: false, message: 'login attenpt failed !' };
           return of(error);
         })
       )

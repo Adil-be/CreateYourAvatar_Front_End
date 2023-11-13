@@ -70,7 +70,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       optionNftModel['description'] = this.filter.description;
     if (this.filter.featured) optionNftModel.featured = this.filter.featured;
     if (this.filter.collectionId)
-      optionNftModel['nftCollection.id'] = this.filter.collectionId;
+      optionNftModel['nftCollection.id'] = Number(this.filter.collectionId);
     if (this.filter.priceMin)
       optionNftModel['initialPrice[gt]'] = this.filter.priceMin;
     if (this.filter.priceMax)

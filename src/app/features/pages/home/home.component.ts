@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     const param: ParamPagination = {
       pagination: true,
-      itemsPerPage: 3,
+      itemsPerPage: 4,
     };
     this.subscriptionCollection = this.nftCollectionService.getNftCollections(param).subscribe(nftCollections=>{
 

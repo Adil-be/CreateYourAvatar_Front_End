@@ -22,13 +22,17 @@ export class NftDetailComponent implements OnInit {
   ngOnInit(): void {
     let nftModel;
     let user;
-    const id = this.route.snapshot.params['id'];
+
+    const id = Number(this.route.snapshot.params['id']);
+ 
     this.nftService.getNftWithModel(id).subscribe((res) => {
       this.nft = res;
+      console.log(this.nft)
     });
   }
 
   public openNftDialog() {
+    console.log(this.nft.inSale)
     let dialogRef = this.matDialog.open(ModifyNftComponent, {
       data: {
         sellingPrice: this.nft.sellingPrice,

@@ -32,7 +32,7 @@
       <div class="d-flex flex-md-column">
         <mat-form-field>
           <mat-label>NFT Collections</mat-label>
-          <mat-select>
+          <mat-select [(value)]="filter.collectionId">
             <mat-option
               *ngFor="let nftcollection of nftcollections | async"
               [value]="nftcollection.id"

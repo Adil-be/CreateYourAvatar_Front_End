@@ -14,6 +14,8 @@ import { AlertComponent } from 'src/app/shared/components/alert/alert.component'
   styleUrls: ['./add-nft.component.css'],
 })
 export class AddNftComponent {
+  loading: boolean = false;
+
   constructor(
     private nftService: NftService,
     private auth: AuthService,
@@ -22,6 +24,7 @@ export class AddNftComponent {
   ) {}
 
   handleSubmit(partialNft: PartialNft) {
+    this.loading = true;
     const model = partialNft.nftModel as NftModel;
     const valueRoute = model.nftValues.slice(-1)[0] as string;
 
@@ -47,7 +50,7 @@ export class AddNftComponent {
       };
 
       this.nftService.postNft(nft).subscribe((res) => {
-        console.log(res);
+        this.loading = false;
         this.openSnackBar('NFT successfuly Added !!', 'success');
       });
     });

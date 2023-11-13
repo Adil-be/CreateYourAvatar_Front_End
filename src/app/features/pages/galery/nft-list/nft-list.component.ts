@@ -24,7 +24,7 @@ export class NftListComponent implements OnInit, OnChanges {
   optionPaginanition: ParamPagination = {};
   max: number = 0;
   currentIndex: number = 0;
-  itemsPerPage: number = 20;
+  itemsPerPage: number = 10;
 
   get currentPage() {
     return this.currentIndex + 1;
