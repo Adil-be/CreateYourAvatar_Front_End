@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let order: order = 'DESC';
     let option = {
       featured: true,
-      'order[purchaseDate]': order,
+      'order[createdAt]': order,
       // 'page': 1,
       itemsPerPage: 4,
     };

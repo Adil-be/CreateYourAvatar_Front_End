@@ -65,7 +65,7 @@ export class NftFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.nftModelsSubcription = this.nftModelService
-      .getModels({ pagination: false })
+      .getModels({ pagination: false, 'quantity[gt]': 0 })
       .pipe(
         map((value) => {
           return value['hydra:member'];
@@ -101,7 +101,7 @@ export class NftFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const Model = this.nftForm.value.nftModel as NftModel;
-    console.log('Model ', Model['id']);
+    // console.log('Model ', Model['id']);
 
     const route = this.nftModelService.routeModel + Model.id;
     let nft: PartialNft = {

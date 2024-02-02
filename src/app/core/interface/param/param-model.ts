@@ -4,6 +4,7 @@ export type ParamModel = {
   featured?: boolean;
   'initialPrice[gt]'?: number;
   'initialPrice[lt]'?: number;
+  'quantity[gt]'?: number;
   'order[createdAt]'?: order;
   name?: string;
   'order[quantity]'?: order;
