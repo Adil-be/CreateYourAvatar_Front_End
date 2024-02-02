@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Nft, PartialNft } from 'src/app/core/interface/model/nft';
 import { NftModel } from 'src/app/core/interface/model/nft-model';
+import { NftModelService } from 'src/app/core/services/nft-model.service';
 import { NftValueService } from 'src/app/core/services/nft-value.service';
 import { NftService } from 'src/app/core/services/nft.service';
 import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
@@ -18,6 +19,7 @@ export class AddNftComponent {
 
   constructor(
     private nftService: NftService,
+    private nftModelService: NftModelService,
     private auth: AuthService,
     private nftValueService: NftValueService,
     private _snackBar: MatSnackBar
@@ -49,10 +51,21 @@ export class AddNftComponent {
         user: routeUser,
       };
 
-      this.nftService.postNft(nft).subscribe((res) => {
-        this.loading = false;
-        this.openSnackBar('NFT successfuly Added !!', 'success');
-      });
+      console.log(nft);
+      this.nftService
+        .postNft(nft)
+        .pipe(
+          catchError((error) => {
+            this.loading = false;
+            this.openSnackBar('Something went wrong!!', 'danger');
+            return error;
+          })
+        )
+        .subscribe((res) => {
+          console.log('res ', res);
+          this.loading = false;
+          this.openSnackBar('NFT successfuly Added !!', 'success');
+        });
     });
   }
   openSnackBar(message: string, classeName: string) {
